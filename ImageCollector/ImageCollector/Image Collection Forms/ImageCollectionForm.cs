@@ -21,5 +21,21 @@ namespace ImageCollector
         {
             ScreenCapture.ListAllRunningProcesses();
         }
+
+        private void buttonScreenshotAllProcesses_Click(object sender, EventArgs e)
+        {
+            ScreenCapture.SaveTestScreenshotOfAllProcesses();
+        }
+
+        private void buttonScreenshotDesktop_Click(object sender, EventArgs e)
+        {
+            ScreenCapture.SaveTestDesktopScreenshot("Desktop.bmp");
+        }
+
+        private void buttonScreenshotNamedProcess_Click(object sender, EventArgs e)
+        {
+            string processName = textBoxProcessName.Text;
+            ScreenCapture.SaveTestScreenshotsOfAllProcessesWithName(processName);
+        }
     }
 }

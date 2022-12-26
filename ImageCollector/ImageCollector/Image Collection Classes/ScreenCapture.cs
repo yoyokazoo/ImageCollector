@@ -197,6 +197,18 @@ namespace ImageCollector
 
         public static void SaveTestScreenshotsOfAllProcessesWithName(string processName, bool checkValidity = false)
         {
+            if (string.IsNullOrEmpty(processName))
+            {
+                Console.WriteLine("Process Name is null or empty!  Skipping SaveTestScreenshotsOfAllProcessesWithName");
+                return;
+            }
+
+            if (GetWindowHandleByName(processName) == IntPtr.Zero)
+            {
+                Console.WriteLine($"Unable to find any processes for {processName}!");
+                return;
+            }
+
             // find window handles
             Process[] processes;
             string folderName = "AllProcesses";
