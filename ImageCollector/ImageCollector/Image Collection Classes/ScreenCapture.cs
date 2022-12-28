@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 // taken from http://www.developerfusion.com/code/4630/capture-a-screen-shot/ with heavy modifications done
 // TODO: How to share this between projects easily?  Project that builds a DLL and add that DLL as a reference?
@@ -168,7 +169,7 @@ namespace ImageCollector
 
         #endregion
 
-        #region Window Handles and Processes
+        #region Window Handles and Processes By Name
 
         public static void ListAllRunningProcesses()
         {
@@ -192,18 +193,18 @@ namespace ImageCollector
 
         public static void SaveTestScreenshotOfAllProcesses()
         {
-            SaveTestScreenshotsOfAllProcessesWithName(null, checkValidity: true);
+            SaveTestScreenshotsOfAllProcessesWithName(null, allProcesses: true, checkValidity: true);
         }
 
-        public static void SaveTestScreenshotsOfAllProcessesWithName(string processName, bool checkValidity = false)
+        public static void SaveTestScreenshotsOfAllProcessesWithName(string processName, bool allProcesses = false, bool checkValidity = false)
         {
-            if (string.IsNullOrEmpty(processName))
+            if (string.IsNullOrEmpty(processName) && !allProcesses)
             {
                 Console.WriteLine("Process Name is null or empty!  Skipping SaveTestScreenshotsOfAllProcessesWithName");
                 return;
             }
 
-            if (GetWindowHandleByName(processName) == IntPtr.Zero)
+            if (GetWindowHandleByName(processName) == IntPtr.Zero && !allProcesses)
             {
                 Console.WriteLine($"Unable to find any processes for {processName}!");
                 return;
@@ -213,7 +214,7 @@ namespace ImageCollector
             Process[] processes;
             string folderName = "AllProcesses";
 
-            if (processName == null)
+            if (allProcesses)
             {
                 processes = Process.GetProcesses();
             }
@@ -237,6 +238,65 @@ namespace ImageCollector
                 SaveBitmapToFile(processScreenshot, $"{folderName}{Path.DirectorySeparatorChar}Test_{p.ProcessName}_{processNum}.bmp");
                 processNum++;
             }
+        }
+
+        public static void SaveTestScreenshotOfDesktopAfterFocusing(string processName)
+        {
+            IntPtr processPtr = GetWindowHandleByName(processName);
+
+            SetForegroundWindow(processPtr);
+
+            Thread.Sleep(3000);
+
+            SaveTestDesktopScreenshot($"TestScreenshotOfDesktop{processName}.bmp");
+        }
+
+        public static void PrintProcessProperties(string processName)
+        {
+            IntPtr processPtr = GetWindowHandleByName(processName);
+
+            Rectangle processWindowRect = GetWindowRectangleFromHandle(processPtr);
+            Console.WriteLine($"Process window rect for {processName} is: {processWindowRect} ({processWindowRect.Location}, {processWindowRect.Size})");
+
+            Bitmap rectangleBitmap = CaptureBitmapFromDesktopAndRectangle(processWindowRect);
+            SaveBitmapToFile(rectangleBitmap, "Rectangle.bmp");
+        }
+
+        #endregion
+
+        #region Window Handles and Processes By Num
+
+        public static void SaveTestScreenshotsOfProcessNum(int processNum)
+        {
+            string folderName = "ProcessByNumber";
+            CreateEmptyFolder(folderName);
+            Process process = Process.GetProcessById(processNum);
+            Bitmap processScreenshot = CaptureBitmapFromWindowHandle(process.MainWindowHandle);
+            SaveBitmapToFile(processScreenshot, $"{folderName}{Path.DirectorySeparatorChar}Test_{process.ProcessName}_{processNum}.bmp");
+        }
+
+        public static void SaveTestScreenshotOfDesktopAfterFocusing(int processNum)
+        {
+            Process process = Process.GetProcessById(processNum);
+            IntPtr processPtr = process.MainWindowHandle;
+
+            SetForegroundWindow(processPtr);
+
+            Thread.Sleep(3000);
+
+            SaveTestDesktopScreenshot($"TestScreenshotOfDesktopByNum{processNum}.bmp");
+        }
+
+        public static void PrintProcessProperties(int processNum)
+        {
+            Process process = Process.GetProcessById(processNum);
+            IntPtr processPtr = process.MainWindowHandle;
+
+            Rectangle processWindowRect = GetWindowRectangleFromHandle(processPtr);
+            Console.WriteLine($"Process window rect for process num {processNum} is: {processWindowRect} ({processWindowRect.Location}, {processWindowRect.Size})");
+
+            Bitmap rectangleBitmap = CaptureBitmapFromDesktopAndRectangle(processWindowRect);
+            SaveBitmapToFile(rectangleBitmap, "Rectangle.bmp");
         }
 
         #endregion
@@ -292,6 +352,7 @@ namespace ImageCollector
 
             Bitmap bmp = CaptureBitmapFromDesktop();
             bmp.Save(imagePath, ImageFormat.Bmp);
+            bmp.Dispose();
         }
 
         private static Bitmap CaptureBitmapFromDesktop()
@@ -365,9 +426,39 @@ namespace ImageCollector
             return img;
         }
 
-        private static void CapturePeriodicScreenshots()
+        public static void CapturePeriodicScreenshotsOfProcessName(string processName)
         {
-            // TODO: write me!
+            IntPtr processPtr = GetWindowHandleByName(processName);
+            Rectangle processWindowRect = GetWindowRectangleFromHandle(processPtr);
+
+            string folderPath = CreateEmptyFolder($"Periodic {processName}");
+
+            int screenshotNum = 0;
+            while (true)
+            {
+                string ssName = $"Periodic_{processName}_{screenshotNum}.bmp";
+                string filePath = Path.Combine(folderPath, ssName);
+                Bitmap rectangleBitmap = CaptureBitmapFromDesktopAndRectangle(processWindowRect);
+                SaveBitmapToFile(rectangleBitmap, filePath);
+                rectangleBitmap.Dispose();
+                Thread.Sleep(500);
+                screenshotNum++;
+            }
+        }
+
+        public static void CapturePeriodicScreenshotsOfDesktop()
+        {
+            string folderPath = ScreenCapture.CreateEmptyFolder($"Periodic Desktop Screenshots");
+
+            int screenshotNum = 0;
+            while (true)
+            {
+                string ssName = $"Periodic_Desktop_{screenshotNum}.bmp";
+                string filePath = Path.Combine(folderPath, ssName);
+                SaveTestDesktopScreenshot(filePath);
+                Thread.Sleep(2000);
+                screenshotNum++;
+            }
         }
 
         #endregion
