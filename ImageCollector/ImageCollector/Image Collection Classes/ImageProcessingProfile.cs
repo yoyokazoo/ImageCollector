@@ -13,6 +13,7 @@ namespace ImageCollector
 
         public string InputFolderPath { get; set; }
         public string OutputFolderPath { get; set; }
+        public string SourceImagePath { get; set; }
 
         // Offset from top left corner of the window
         public int OffsetX { get; set; }
@@ -47,6 +48,7 @@ namespace ImageCollector
 
             InputFolderPath = null;
             OutputFolderPath = null;
+            SourceImagePath = null;
 
             OffsetX = 0;
             OffsetY = 0;
@@ -130,6 +132,7 @@ namespace ImageCollector
 
             newProfile.InputFolderPath = this.InputFolderPath;
             newProfile.OutputFolderPath = this.OutputFolderPath;
+            newProfile.SourceImagePath = this.SourceImagePath;
             newProfile.OffsetX = this.OffsetX;
             newProfile.OffsetY = this.OffsetY;
             newProfile.Width = this.Width;
@@ -154,8 +157,9 @@ namespace ImageCollector
         {
             var otherProfile = (ImageProcessingProfile)otherObj ?? new ImageProcessingProfile();
 
-            if(this.InputFolderPath != otherProfile.InputFolderPath || 
-               this.OutputFolderPath != otherProfile.OutputFolderPath ||
+            if(!string.Equals(this.InputFolderPath, otherProfile.InputFolderPath) ||
+               !string.Equals(this.OutputFolderPath, otherProfile.OutputFolderPath) ||
+               !string.Equals(this.SourceImagePath, otherProfile.SourceImagePath) ||
                this.OffsetX != otherProfile.OffsetX ||
                this.OffsetY != otherProfile.OffsetY ||
                this.Width != otherProfile.Width ||

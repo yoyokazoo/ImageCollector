@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ImageCollector.Image_Collection_Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -72,6 +74,30 @@ namespace ImageCollector
         private void button4_Click(object sender, EventArgs e)
         {
             ScreenCapture.CapturePeriodicScreenshotsOfDesktop();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string processName = textBoxProcessName.Text;
+            IntPtr processPtr = ScreenCapture.GetWindowHandleByName(processName);
+            Rectangle rect = new Rectangle(0, 0, 500, 500);
+            ScreenCapture.MoveAndResizeWindow(processPtr, rect);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            int processNum = int.Parse(textBoxProcessNum.Text);
+            Process process = Process.GetProcessById(processNum);
+            IntPtr processPtr = process.MainWindowHandle;
+
+            Rectangle rect = new Rectangle(0, 0, 500, 500);
+            ScreenCapture.MoveAndResizeWindow(processPtr, rect);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            ImageProcessingForm imageProcessing = new ImageProcessingForm();
+            imageProcessing.ShowDialog();
         }
     }
 }

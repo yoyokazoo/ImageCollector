@@ -8,6 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 // taken from http://www.developerfusion.com/code/4630/capture-a-screen-shot/ with heavy modifications done
 // TODO: How to share this between projects easily?  Project that builds a DLL and add that DLL as a reference?
@@ -51,6 +52,9 @@ namespace ImageCollector
         // Helper class containing User32 API functions
         private class User32
         {
+            // SetWindowPosition Constants https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
+            public const int SWP_SHOWWINDOW = 0x0040;
+
             [StructLayout(LayoutKind.Sequential)]
             public struct Rect
             {
@@ -69,6 +73,9 @@ namespace ImageCollector
             public static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
             [DllImport("user32.dll")]
             public static extern int SetForegroundWindow(IntPtr hWnd);
+            [DllImport("user32.dll")]
+            public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int left, int top, int width, int height, int wFlags);
+
         }
 
         #endregion
@@ -477,6 +484,16 @@ namespace ImageCollector
             return new Rectangle(windowRect.left, windowRect.top, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
         }
 
+        public static void MoveAndResizeWindow(IntPtr handle, Rectangle rectangle)
+        {
+            // Can be used to get existing bounds
+            // Control form = Control.FromHandle(handle);
+            Thread.Sleep(3000);
+            bool success = User32.SetWindowPos(handle, 0, rectangle.Left, rectangle.Top, rectangle.Width, rectangle.Height, 0/*User32.SWP_SHOWWINDOW*/);
+            Console.WriteLine($"Set Window Pos: success = {success}");
+
+        }
+
         #endregion
 
         #region Validation
@@ -518,6 +535,24 @@ namespace ImageCollector
             return true;
         }
 
-        #endregion        
+        #endregion
+
+        #region File/Folder Manipulation
+
+        public static string SelectFolder(FolderBrowserDialog browserDialog, TextBox pathTextBox)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            browserDialog.SelectedPath = currentDirectory;
+
+            DialogResult result = browserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                pathTextBox.Text = browserDialog.SelectedPath;
+            }
+
+            return browserDialog.SelectedPath;
+        }
+
+        #endregion
     }
 }

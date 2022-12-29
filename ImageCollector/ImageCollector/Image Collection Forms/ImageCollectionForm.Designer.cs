@@ -46,6 +46,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxWindowHeight = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxWindowWidth = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonListProcessNames
@@ -212,11 +219,80 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(274, 194);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Window Height";
+            // 
+            // textBoxWindowHeight
+            // 
+            this.textBoxWindowHeight.Location = new System.Drawing.Point(356, 191);
+            this.textBoxWindowHeight.Name = "textBoxWindowHeight";
+            this.textBoxWindowHeight.Size = new System.Drawing.Size(171, 20);
+            this.textBoxWindowHeight.TabIndex = 20;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(274, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Window Width";
+            // 
+            // textBoxWindowWidth
+            // 
+            this.textBoxWindowWidth.Location = new System.Drawing.Point(356, 165);
+            this.textBoxWindowWidth.Name = "textBoxWindowWidth";
+            this.textBoxWindowWidth.Size = new System.Drawing.Size(171, 20);
+            this.textBoxWindowWidth.TabIndex = 18;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(462, 227);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(144, 82);
+            this.button5.TabIndex = 22;
+            this.button5.Text = "Move and Resize Named Process";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(462, 315);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(144, 82);
+            this.button6.TabIndex = 23;
+            this.button6.Text = "Move and Resize Process Num";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(12, 490);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(144, 82);
+            this.button7.TabIndex = 24;
+            this.button7.Text = "Image Processing Form";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // ImageCollectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 584);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxWindowHeight);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBoxWindowWidth);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -262,5 +338,12 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxWindowHeight;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxWindowWidth;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
