@@ -40,6 +40,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxLeft = new System.Windows.Forms.TextBox();
+            this.textBoxTop = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -125,7 +134,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 185);
+            this.button4.Location = new System.Drawing.Point(15, 428);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(129, 60);
             this.button4.TabIndex = 9;
@@ -137,11 +146,94 @@
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 195);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(25, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Left";
+            // 
+            // textBoxLeft
+            // 
+            this.textBoxLeft.Location = new System.Drawing.Point(81, 192);
+            this.textBoxLeft.Name = "textBoxLeft";
+            this.textBoxLeft.Size = new System.Drawing.Size(116, 20);
+            this.textBoxLeft.TabIndex = 11;
+            // 
+            // textBoxTop
+            // 
+            this.textBoxTop.Location = new System.Drawing.Point(81, 218);
+            this.textBoxTop.Name = "textBoxTop";
+            this.textBoxTop.Size = new System.Drawing.Size(116, 20);
+            this.textBoxTop.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 221);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Top";
+            // 
+            // textBoxWidth
+            // 
+            this.textBoxWidth.Location = new System.Drawing.Point(81, 244);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(116, 20);
+            this.textBoxWidth.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 247);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Width";
+            // 
+            // textBoxHeight
+            // 
+            this.textBoxHeight.Location = new System.Drawing.Point(81, 270);
+            this.textBoxHeight.Name = "textBoxHeight";
+            this.textBoxHeight.Size = new System.Drawing.Size(116, 20);
+            this.textBoxHeight.TabIndex = 17;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 273);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Height";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(150, 428);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(129, 60);
+            this.button5.TabIndex = 18;
+            this.button5.Text = "Slice Images";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // ImageProcessingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 729);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.textBoxHeight);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxWidth);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBoxTop);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxLeft);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBoxOutputFolder);
@@ -173,5 +265,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxLeft;
+        private System.Windows.Forms.TextBox textBoxTop;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxWidth;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxHeight;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button5;
     }
 }
