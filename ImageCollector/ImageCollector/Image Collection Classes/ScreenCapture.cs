@@ -553,6 +553,21 @@ namespace ImageCollector
             return browserDialog.SelectedPath;
         }
 
+        public static string SelectBmpFile(OpenFileDialog fileDialog, TextBox bmpTextBox)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            fileDialog.InitialDirectory = currentDirectory;
+            fileDialog.Filter = "BMP files (*.bmp)|*.bmp";
+
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                bmpTextBox.Text = fileDialog.FileName;
+            }
+
+            return fileDialog.FileName;
+        }
+
         #endregion
     }
 }

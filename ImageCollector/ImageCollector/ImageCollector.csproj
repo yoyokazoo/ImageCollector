@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Image Collection Classes\ImageComparison.cs" />
     <Compile Include="Image Collection Classes\ScreenCapture.cs" />
     <Compile Include="Image Collection Classes\ImageCollectionProfile.cs" />
     <Compile Include="Image Collection Classes\ImageProcessingProfile.cs" />
