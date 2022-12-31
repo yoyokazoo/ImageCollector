@@ -177,13 +177,13 @@ namespace ImageCollector
             textBoxWindowHeight.Text = profile.WindowHeight.ToString();
         }
 
+        // --------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
         private void ImageCollectionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = !ConfirmUnsavedChangesAction();
         }
-
-        // --------------------------------------------------------------------------------------------------------------------------------
-        #endregion
 
         private void ProcessName_TextChanged(object sender, EventArgs e)
         {

@@ -79,8 +79,8 @@ namespace ImageCollector.Image_Collection_Forms
         {
             List<Rectangle> rectangles = new List<Rectangle>();
 
-            int OffsetX = int.Parse(textBoxX.Text);
-            int OffsetY = int.Parse(textBoxY.Text);
+            int OffsetX = int.Parse(textBoxOffsetX.Text);
+            int OffsetY = int.Parse(textBoxOffsetY.Text);
 
             int SliceWidth = int.Parse(textBoxWidth.Text);
             int SliceHeight = int.Parse(textBoxHeight.Text);
@@ -162,55 +162,121 @@ namespace ImageCollector.Image_Collection_Forms
 
         private void UpdateControlsFromProfile()
         {
-            
-        }
+            textBoxInputFolder.Text = profile.InputFolderPath;
+            textBoxOutputFolder.Text = profile.OutputFolderPath;
+            textBoxSourceImage.Text = profile.SourceImagePath;
 
-        private void ImageCollectionForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = !ConfirmUnsavedChangesAction();
+            textBoxOffsetX.Text = profile.OffsetX.ToString();
+            textBoxOffsetY.Text = profile.OffsetY.ToString();
+
+            textBoxWidth.Text = profile.Width.ToString();
+            textBoxHeight.Text = profile.Height.ToString();
+
+            textBoxStepX.Text = profile.StepX.ToString();
+            textBoxStepY.Text = profile.StepY.ToString();
+
+            textBoxRepeatX.Text = profile.RepeatX.ToString();
+            textBoxRepeatY.Text = profile.RepeatY.ToString();
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------
         #endregion
 
-        private void X_TextChanged(object sender, EventArgs e)
+        private void OffsetX_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxOffsetX.Text, out int result);
+            profile.OffsetX = result;
         }
 
-        private void Y_TextChanged(object sender, EventArgs e)
+        private void OffsetY_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxOffsetY.Text, out int result);
+            profile.OffsetY = result;
         }
 
-        private void Width_TestChanged(object sender, EventArgs e)
+        private void Width_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxWidth.Text, out int result);
+            profile.Width = result;
         }
 
         private void Height_TestChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxHeight.Text, out int result);
+            profile.Height = result;
         }
 
         private void StepX_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxStepX.Text, out int result);
+            profile.StepX = result;
         }
 
         private void StepY_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxStepY.Text, out int result);
+            profile.StepY = result;
         }
 
         private void RepeatX_TextChanged(object sender, EventArgs e)
         {
-
+            int.TryParse(textBoxRepeatX.Text, out int result);
+            profile.RepeatX = result;
         }
 
         private void RepeatY_TextChanged(object sender, EventArgs e)
         {
+            int.TryParse(textBoxRepeatY.Text, out int result);
+            profile.RepeatY = result;
+        }
 
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ConfirmUnsavedChangesAction())
+            {
+                CreateNewProfile();
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profile = ImageProcessingProfile.Open();
+            UpdateControlsFromProfile();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profile.Save();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseForm();
+        }
+
+        private void ImageProcessingForm_Load(object sender, EventArgs e)
+        {
+            CreateNewProfile();
+        }
+
+        private void InputFolderPath_TextChanged(object sender, EventArgs e)
+        {
+            profile.InputFolderPath = textBoxInputFolder.Text;
+        }
+
+        private void OutputFolderPath_TextChanged(object sender, EventArgs e)
+        {
+            profile.OutputFolderPath = textBoxOutputFolder.Text;
+        }
+
+        private void SourceImage_TextChanged(object sender, EventArgs e)
+        {
+            profile.SourceImagePath = textBoxSourceImage.Text;
+        }
+
+        private void ImageProcessingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !ConfirmUnsavedChangesAction();
         }
     }
 }
