@@ -278,5 +278,19 @@ namespace ImageCollector.Image_Collection_Forms
         {
             e.Cancel = !ConfirmUnsavedChangesAction();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(profile.InputFolderPath))
+            {
+                Console.WriteLine("You need to specify an input folder!");
+                return;
+            }
+
+            ImageProcessingPreviewForm processingPreviewForm = new ImageProcessingPreviewForm(profile);
+            processingPreviewForm.ShowDialog();
+
+            UpdateControlsFromProfile();
+        }
     }
 }
