@@ -124,7 +124,10 @@ namespace ImageCollector
             CloseForm();
         }
 
+        #region Profile Lifecycle
         // TODO: Some way to reuse this between forms
+        // --------------------------------------------------------------------------------------------------------------------------------
+
         private ImageCollectionProfile profile;
         private bool CloseForm()
         {
@@ -179,15 +182,42 @@ namespace ImageCollector
             e.Cancel = !ConfirmUnsavedChangesAction();
         }
 
+        // --------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
         private void ProcessName_TextChanged(object sender, EventArgs e)
         {
             profile.ProcessName = textBoxProcessName.Text;
         }
 
-        private void ProcessNumTextChanged(object sender, EventArgs e)
+        private void ProcessNum_TextChanged(object sender, EventArgs e)
         {
-            int.TryParse(textBoxProcessNum.Text, out int parseResult);
-            profile.ProcessNum = parseResult;
+            int.TryParse(textBoxProcessNum.Text, out int result);
+            profile.ProcessNum = result;
+        }
+
+        private void WindowOffsetX_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxWindowOffsetX.Text, out int result);
+            profile.WindowOffsetX = result;
+        }
+
+        private void WindowOffsetY_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxWindowOffsetY.Text, out int result);
+            profile.WindowOffsetY = result;
+        }
+
+        private void WindowWidth_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxWindowWidth.Text, out int result);
+            profile.WindowWidth = result;
+        }
+
+        private void WindowHeight_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxWindowHeight.Text, out int result);
+            profile.WindowHeight = result;
         }
     }
 }

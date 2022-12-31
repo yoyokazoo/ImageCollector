@@ -124,6 +124,7 @@
             this.textBoxWindowOffsetX.Name = "textBoxWindowOffsetX";
             this.textBoxWindowOffsetX.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowOffsetX.TabIndex = 5;
+            this.textBoxWindowOffsetX.TextChanged += new System.EventHandler(this.WindowOffsetX_TextChanged);
             // 
             // label3
             // 
@@ -140,6 +141,7 @@
             this.textBoxWindowOffsetY.Name = "textBoxWindowOffsetY";
             this.textBoxWindowOffsetY.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowOffsetY.TabIndex = 7;
+            this.textBoxWindowOffsetY.TextChanged += new System.EventHandler(this.WindowOffsetY_TextChanged);
             // 
             // buttonScreenshotNamedProcess
             // 
@@ -186,7 +188,7 @@
             this.textBoxProcessNum.Name = "textBoxProcessNum";
             this.textBoxProcessNum.Size = new System.Drawing.Size(171, 20);
             this.textBoxProcessNum.TabIndex = 12;
-            this.textBoxProcessNum.TextChanged += new System.EventHandler(this.ProcessNumTextChanged);
+            this.textBoxProcessNum.TextChanged += new System.EventHandler(this.ProcessNum_TextChanged);
             // 
             // buttonScreenshotNumProcess
             // 
@@ -243,6 +245,7 @@
             this.textBoxWindowHeight.Name = "textBoxWindowHeight";
             this.textBoxWindowHeight.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowHeight.TabIndex = 20;
+            this.textBoxWindowHeight.TextChanged += new System.EventHandler(this.WindowHeight_TextChanged);
             // 
             // label6
             // 
@@ -259,6 +262,7 @@
             this.textBoxWindowWidth.Name = "textBoxWindowWidth";
             this.textBoxWindowWidth.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowWidth.TabIndex = 18;
+            this.textBoxWindowWidth.TextChanged += new System.EventHandler(this.WindowWidth_TextChanged);
             // 
             // button5
             // 
@@ -316,28 +320,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
