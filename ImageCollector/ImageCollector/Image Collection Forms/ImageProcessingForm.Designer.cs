@@ -49,6 +49,14 @@
             this.textBoxHeight = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
+            this.textBoxRepeatY = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxRepeatX = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxStepY = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxStepX = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -220,11 +228,87 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // textBoxRepeatY
+            // 
+            this.textBoxRepeatY.Location = new System.Drawing.Point(288, 270);
+            this.textBoxRepeatY.Name = "textBoxRepeatY";
+            this.textBoxRepeatY.Size = new System.Drawing.Size(116, 20);
+            this.textBoxRepeatY.TabIndex = 22;
+            this.textBoxRepeatY.Text = "1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(219, 273);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Repeat Y";
+            // 
+            // textBoxRepeatX
+            // 
+            this.textBoxRepeatX.Location = new System.Drawing.Point(288, 244);
+            this.textBoxRepeatX.Name = "textBoxRepeatX";
+            this.textBoxRepeatX.Size = new System.Drawing.Size(116, 20);
+            this.textBoxRepeatX.TabIndex = 20;
+            this.textBoxRepeatX.Text = "1";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(219, 247);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Repeat X";
+            // 
+            // textBoxStepY
+            // 
+            this.textBoxStepY.Location = new System.Drawing.Point(288, 221);
+            this.textBoxStepY.Name = "textBoxStepY";
+            this.textBoxStepY.Size = new System.Drawing.Size(116, 20);
+            this.textBoxStepY.TabIndex = 26;
+            this.textBoxStepY.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(219, 224);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(39, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Step Y";
+            // 
+            // textBoxStepX
+            // 
+            this.textBoxStepX.Location = new System.Drawing.Point(288, 195);
+            this.textBoxStepX.Name = "textBoxStepX";
+            this.textBoxStepX.Size = new System.Drawing.Size(116, 20);
+            this.textBoxStepX.TabIndex = 24;
+            this.textBoxStepX.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(219, 198);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Step X";
+            // 
             // ImageProcessingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 729);
+            this.Controls.Add(this.textBoxStepY);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxStepX);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxRepeatY);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxRepeatX);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.textBoxHeight);
             this.Controls.Add(this.label7);
@@ -274,5 +358,13 @@
         private System.Windows.Forms.TextBox textBoxHeight;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox textBoxRepeatY;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxRepeatX;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxStepY;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxStepX;
+        private System.Windows.Forms.Label label11;
     }
 }
