@@ -79,8 +79,8 @@ namespace ImageCollector.Image_Collection_Forms
         {
             List<Rectangle> rectangles = new List<Rectangle>();
 
-            int OffsetX = int.Parse(textBoxLeft.Text);
-            int OffsetY = int.Parse(textBoxTop.Text);
+            int OffsetX = int.Parse(textBoxX.Text);
+            int OffsetY = int.Parse(textBoxY.Text);
 
             int SliceWidth = int.Parse(textBoxWidth.Text);
             int SliceHeight = int.Parse(textBoxHeight.Text);
@@ -117,6 +117,100 @@ namespace ImageCollector.Image_Collection_Forms
             }
 
             return rectangles;
+        }
+
+        #region Profile Lifecycle
+        // TODO: Some way to reuse this between forms
+        // --------------------------------------------------------------------------------------------------------------------------------
+
+        private ImageProcessingProfile profile;
+        private bool CloseForm()
+        {
+            if (ConfirmUnsavedChangesAction())
+            {
+                this.Close();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ConfirmUnsavedChangesAction()
+        {
+            if (profile.IsProfileUnsaved())
+            {
+                var confirmResult = MessageBox.Show("You have unsaved changes, would you like to proceed?",
+                                     "Unsaved Changes",
+                                     MessageBoxButtons.YesNo);
+
+                return confirmResult == DialogResult.Yes;
+            }
+
+            return true;
+        }
+
+        private void CreateNewProfile()
+        {
+            profile = new ImageProcessingProfile();
+            UpdateControlsFromProfile();
+        }
+
+        private void ImageCollectionForm_Load(object sender, EventArgs e)
+        {
+            CreateNewProfile();
+        }
+
+        private void UpdateControlsFromProfile()
+        {
+            
+        }
+
+        private void ImageCollectionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !ConfirmUnsavedChangesAction();
+        }
+
+        // --------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
+        private void X_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Y_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Width_TestChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Height_TestChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StepX_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StepY_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RepeatX_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RepeatY_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

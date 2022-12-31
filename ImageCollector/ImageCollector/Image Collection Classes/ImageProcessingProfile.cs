@@ -8,9 +8,11 @@ namespace ImageCollector
 {
     public class ImageProcessingProfile : SaveableProfile<ImageProcessingProfile>
     {
-        // TODO: hmmmm....
-        public new static string ProfileName => "ImageProcessingProfile";
-        public new static string ProfileFileExtension => "ipp";
+        static ImageProcessingProfile()
+        {
+            ProfileName = "ImageProcessingProfile";
+            ProfileFileExtension = "ipp";
+        }
 
         public string InputFolderPath { get; set; }
         public string OutputFolderPath { get; set; }
@@ -32,14 +34,15 @@ namespace ImageCollector
         public int StepY { get; set; }
 
         // How many images to capture in rows/columns
-        public int RepeatColumns { get; set; }
-        public int RepeatRows { get; set; }
 
         // If we have some sort of honeycomb pattern, X/Y values should go:
         // 0, AlternatingRowOffsetX, 0, AlternatingRowOffsetX, 0, etc.
         // 0, AlternatingRowOffsetY, 0, AlternatingRowOffsetY, 0, etc.
         public int AlternatingRowOffsetX { get; set; }
         public int AlternatingRowOffsetY { get; set; }
+
+        public int RepeatX { get; set; }
+        public int RepeatY { get; set; }
 
         public string MostRecentPreviewFilePath { get; set; }
 
@@ -60,9 +63,9 @@ namespace ImageCollector
             StepX = 0;
             StepY = 0;
             
-            RepeatColumns = 0;
-            RepeatRows = 0;
-            
+            RepeatX = 1;
+            RepeatY = 1;
+
             AlternatingRowOffsetX = 0;
             AlternatingRowOffsetY = 0;
 
@@ -82,10 +85,8 @@ namespace ImageCollector
             newProfile.Height = this.Height;
             newProfile.StepX = this.StepX;
             newProfile.StepY = this.StepY;
-            newProfile.RepeatColumns = this.RepeatColumns;
-            newProfile.RepeatRows = this.RepeatRows;
-            newProfile.AlternatingRowOffsetX = this.AlternatingRowOffsetX;
-            newProfile.AlternatingRowOffsetY = this.AlternatingRowOffsetY;
+            newProfile.RepeatX = this.RepeatX;
+            newProfile.RepeatY = this.RepeatY;
             newProfile.MostRecentPreviewFilePath = this.MostRecentPreviewFilePath;
 
             return newProfile;
@@ -104,8 +105,8 @@ namespace ImageCollector
                this.Height != otherProfile.Height ||
                this.StepX != otherProfile.StepX ||
                this.StepY != otherProfile.StepY ||
-               this.RepeatColumns != otherProfile.RepeatColumns ||
-               this.RepeatRows != otherProfile.RepeatRows ||
+               this.RepeatX != otherProfile.RepeatX ||
+               this.RepeatY != otherProfile.RepeatY ||
                this.AlternatingRowOffsetX != otherProfile.AlternatingRowOffsetX ||
                this.AlternatingRowOffsetY != otherProfile.AlternatingRowOffsetY ||
                this.MostRecentPreviewFilePath != otherProfile.MostRecentPreviewFilePath)
@@ -130,14 +131,14 @@ namespace ImageCollector
             int startingY = OffsetY;
             int endingY = startingY + Height;
 
-            for (int row = 0; row < RepeatRows; row++)
+            for (int row = 0; row < RepeatY; row++)
             {
                 // set up X for new row
                 int startingX = OffsetX;
                 startingX += AlternatingRowOffsetX * (row % 2); // every other row, alternate by X
                 int endingX = startingX + Width;
 
-                for (int column = 0; column < RepeatColumns; column++)
+                for (int column = 0; column < RepeatX; column++)
                 {
                     Rectangle newRect = new Rectangle(startingX, startingY, Width, Height);
                     rectangles.Add(newRect);

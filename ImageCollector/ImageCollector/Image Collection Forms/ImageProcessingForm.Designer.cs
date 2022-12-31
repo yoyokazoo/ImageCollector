@@ -41,8 +41,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxLeft = new System.Windows.Forms.TextBox();
-            this.textBoxTop = new System.Windows.Forms.TextBox();
+            this.textBoxX = new System.Windows.Forms.TextBox();
+            this.textBoxY = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxWidth = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -159,32 +159,34 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 195);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 13);
+            this.label4.Size = new System.Drawing.Size(14, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Left";
+            this.label4.Text = "X";
             // 
-            // textBoxLeft
+            // textBoxX
             // 
-            this.textBoxLeft.Location = new System.Drawing.Point(81, 192);
-            this.textBoxLeft.Name = "textBoxLeft";
-            this.textBoxLeft.Size = new System.Drawing.Size(116, 20);
-            this.textBoxLeft.TabIndex = 11;
+            this.textBoxX.Location = new System.Drawing.Point(81, 192);
+            this.textBoxX.Name = "textBoxX";
+            this.textBoxX.Size = new System.Drawing.Size(116, 20);
+            this.textBoxX.TabIndex = 11;
+            this.textBoxX.TextChanged += new System.EventHandler(this.X_TextChanged);
             // 
-            // textBoxTop
+            // textBoxY
             // 
-            this.textBoxTop.Location = new System.Drawing.Point(81, 218);
-            this.textBoxTop.Name = "textBoxTop";
-            this.textBoxTop.Size = new System.Drawing.Size(116, 20);
-            this.textBoxTop.TabIndex = 13;
+            this.textBoxY.Location = new System.Drawing.Point(81, 218);
+            this.textBoxY.Name = "textBoxY";
+            this.textBoxY.Size = new System.Drawing.Size(116, 20);
+            this.textBoxY.TabIndex = 13;
+            this.textBoxY.TextChanged += new System.EventHandler(this.Y_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 221);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.Size = new System.Drawing.Size(14, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Top";
+            this.label5.Text = "Y";
             // 
             // textBoxWidth
             // 
@@ -192,6 +194,7 @@
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(116, 20);
             this.textBoxWidth.TabIndex = 15;
+            this.textBoxWidth.TextChanged += new System.EventHandler(this.Width_TestChanged);
             // 
             // label6
             // 
@@ -208,6 +211,7 @@
             this.textBoxHeight.Name = "textBoxHeight";
             this.textBoxHeight.Size = new System.Drawing.Size(116, 20);
             this.textBoxHeight.TabIndex = 17;
+            this.textBoxHeight.TextChanged += new System.EventHandler(this.Height_TestChanged);
             // 
             // label7
             // 
@@ -235,6 +239,7 @@
             this.textBoxRepeatY.Size = new System.Drawing.Size(116, 20);
             this.textBoxRepeatY.TabIndex = 22;
             this.textBoxRepeatY.Text = "1";
+            this.textBoxRepeatY.TextChanged += new System.EventHandler(this.RepeatY_TextChanged);
             // 
             // label8
             // 
@@ -252,6 +257,7 @@
             this.textBoxRepeatX.Size = new System.Drawing.Size(116, 20);
             this.textBoxRepeatX.TabIndex = 20;
             this.textBoxRepeatX.Text = "1";
+            this.textBoxRepeatX.TextChanged += new System.EventHandler(this.RepeatX_TextChanged);
             // 
             // label9
             // 
@@ -269,6 +275,7 @@
             this.textBoxStepY.Size = new System.Drawing.Size(116, 20);
             this.textBoxStepY.TabIndex = 26;
             this.textBoxStepY.Text = "0";
+            this.textBoxStepY.TextChanged += new System.EventHandler(this.StepY_TextChanged);
             // 
             // label10
             // 
@@ -286,6 +293,7 @@
             this.textBoxStepX.Size = new System.Drawing.Size(116, 20);
             this.textBoxStepX.TabIndex = 24;
             this.textBoxStepX.Text = "0";
+            this.textBoxStepX.TextChanged += new System.EventHandler(this.StepX_TextChanged);
             // 
             // label11
             // 
@@ -314,9 +322,9 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxWidth);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBoxTop);
+            this.Controls.Add(this.textBoxY);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBoxLeft);
+            this.Controls.Add(this.textBoxX);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -350,8 +358,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxLeft;
-        private System.Windows.Forms.TextBox textBoxTop;
+        private System.Windows.Forms.TextBox textBoxX;
+        private System.Windows.Forms.TextBox textBoxY;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxWidth;
         private System.Windows.Forms.Label label6;

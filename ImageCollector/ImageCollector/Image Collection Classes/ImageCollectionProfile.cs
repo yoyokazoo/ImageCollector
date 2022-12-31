@@ -4,6 +4,12 @@ namespace ImageCollector
 {
     public class ImageCollectionProfile : SaveableProfile<ImageCollectionProfile>
     {
+        static ImageCollectionProfile()
+        {
+            ProfileName = "ImageCollectionProfile";
+            ProfileFileExtension = "icp";
+        }
+
         public string ProcessName { get; set; }
         public int ProcessNum { get; set; }
 
