@@ -53,11 +53,18 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonListProcessNames
             // 
-            this.buttonListProcessNames.Location = new System.Drawing.Point(12, 12);
+            this.buttonListProcessNames.Location = new System.Drawing.Point(12, 28);
             this.buttonListProcessNames.Name = "buttonListProcessNames";
             this.buttonListProcessNames.Size = new System.Drawing.Size(144, 82);
             this.buttonListProcessNames.TabIndex = 0;
@@ -67,7 +74,7 @@
             // 
             // buttonScreenshotAllProcesses
             // 
-            this.buttonScreenshotAllProcesses.Location = new System.Drawing.Point(162, 12);
+            this.buttonScreenshotAllProcesses.Location = new System.Drawing.Point(162, 28);
             this.buttonScreenshotAllProcesses.Name = "buttonScreenshotAllProcesses";
             this.buttonScreenshotAllProcesses.Size = new System.Drawing.Size(144, 82);
             this.buttonScreenshotAllProcesses.TabIndex = 1;
@@ -77,7 +84,7 @@
             // 
             // buttonScreenshotDesktop
             // 
-            this.buttonScreenshotDesktop.Location = new System.Drawing.Point(312, 12);
+            this.buttonScreenshotDesktop.Location = new System.Drawing.Point(312, 28);
             this.buttonScreenshotDesktop.Name = "buttonScreenshotDesktop";
             this.buttonScreenshotDesktop.Size = new System.Drawing.Size(144, 82);
             this.buttonScreenshotDesktop.TabIndex = 2;
@@ -87,15 +94,16 @@
             // 
             // textBoxProcessName
             // 
-            this.textBoxProcessName.Location = new System.Drawing.Point(97, 139);
+            this.textBoxProcessName.Location = new System.Drawing.Point(97, 155);
             this.textBoxProcessName.Name = "textBoxProcessName";
             this.textBoxProcessName.Size = new System.Drawing.Size(171, 20);
             this.textBoxProcessName.TabIndex = 3;
+            this.textBoxProcessName.TextChanged += new System.EventHandler(this.ProcessName_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 142);
+            this.label1.Location = new System.Drawing.Point(15, 158);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 4;
@@ -104,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 168);
+            this.label2.Location = new System.Drawing.Point(15, 184);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 6;
@@ -112,7 +120,7 @@
             // 
             // textBoxWindowOffsetX
             // 
-            this.textBoxWindowOffsetX.Location = new System.Drawing.Point(97, 165);
+            this.textBoxWindowOffsetX.Location = new System.Drawing.Point(97, 181);
             this.textBoxWindowOffsetX.Name = "textBoxWindowOffsetX";
             this.textBoxWindowOffsetX.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowOffsetX.TabIndex = 5;
@@ -120,7 +128,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 194);
+            this.label3.Location = new System.Drawing.Point(15, 210);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 8;
@@ -128,14 +136,14 @@
             // 
             // textBoxWindowOffsetY
             // 
-            this.textBoxWindowOffsetY.Location = new System.Drawing.Point(97, 191);
+            this.textBoxWindowOffsetY.Location = new System.Drawing.Point(97, 207);
             this.textBoxWindowOffsetY.Name = "textBoxWindowOffsetY";
             this.textBoxWindowOffsetY.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowOffsetY.TabIndex = 7;
             // 
             // buttonScreenshotNamedProcess
             // 
-            this.buttonScreenshotNamedProcess.Location = new System.Drawing.Point(12, 227);
+            this.buttonScreenshotNamedProcess.Location = new System.Drawing.Point(12, 243);
             this.buttonScreenshotNamedProcess.Name = "buttonScreenshotNamedProcess";
             this.buttonScreenshotNamedProcess.Size = new System.Drawing.Size(144, 82);
             this.buttonScreenshotNamedProcess.TabIndex = 9;
@@ -145,7 +153,7 @@
             // 
             // buttonScreenshotAfterFocusing
             // 
-            this.buttonScreenshotAfterFocusing.Location = new System.Drawing.Point(162, 227);
+            this.buttonScreenshotAfterFocusing.Location = new System.Drawing.Point(162, 243);
             this.buttonScreenshotAfterFocusing.Name = "buttonScreenshotAfterFocusing";
             this.buttonScreenshotAfterFocusing.Size = new System.Drawing.Size(144, 82);
             this.buttonScreenshotAfterFocusing.TabIndex = 10;
@@ -155,7 +163,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(312, 227);
+            this.button1.Location = new System.Drawing.Point(312, 243);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(144, 82);
             this.button1.TabIndex = 11;
@@ -166,7 +174,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(274, 138);
+            this.label4.Location = new System.Drawing.Point(274, 154);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 13;
@@ -174,14 +182,15 @@
             // 
             // textBoxProcessNum
             // 
-            this.textBoxProcessNum.Location = new System.Drawing.Point(356, 135);
+            this.textBoxProcessNum.Location = new System.Drawing.Point(356, 151);
             this.textBoxProcessNum.Name = "textBoxProcessNum";
-            this.textBoxProcessNum.Size = new System.Drawing.Size(100, 20);
+            this.textBoxProcessNum.Size = new System.Drawing.Size(171, 20);
             this.textBoxProcessNum.TabIndex = 12;
+            this.textBoxProcessNum.TextChanged += new System.EventHandler(this.ProcessNumTextChanged);
             // 
             // buttonScreenshotNumProcess
             // 
-            this.buttonScreenshotNumProcess.Location = new System.Drawing.Point(12, 315);
+            this.buttonScreenshotNumProcess.Location = new System.Drawing.Point(12, 331);
             this.buttonScreenshotNumProcess.Name = "buttonScreenshotNumProcess";
             this.buttonScreenshotNumProcess.Size = new System.Drawing.Size(144, 82);
             this.buttonScreenshotNumProcess.TabIndex = 14;
@@ -191,7 +200,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(312, 315);
+            this.button2.Location = new System.Drawing.Point(312, 331);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(144, 82);
             this.button2.TabIndex = 15;
@@ -201,7 +210,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(162, 315);
+            this.button3.Location = new System.Drawing.Point(162, 331);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(144, 82);
             this.button3.TabIndex = 16;
@@ -211,7 +220,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(462, 12);
+            this.button4.Location = new System.Drawing.Point(462, 28);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(144, 82);
             this.button4.TabIndex = 17;
@@ -222,7 +231,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(274, 194);
+            this.label5.Location = new System.Drawing.Point(274, 210);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 21;
@@ -230,7 +239,7 @@
             // 
             // textBoxWindowHeight
             // 
-            this.textBoxWindowHeight.Location = new System.Drawing.Point(356, 191);
+            this.textBoxWindowHeight.Location = new System.Drawing.Point(356, 207);
             this.textBoxWindowHeight.Name = "textBoxWindowHeight";
             this.textBoxWindowHeight.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowHeight.TabIndex = 20;
@@ -238,7 +247,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(274, 168);
+            this.label6.Location = new System.Drawing.Point(274, 184);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 13);
             this.label6.TabIndex = 19;
@@ -246,14 +255,14 @@
             // 
             // textBoxWindowWidth
             // 
-            this.textBoxWindowWidth.Location = new System.Drawing.Point(356, 165);
+            this.textBoxWindowWidth.Location = new System.Drawing.Point(356, 181);
             this.textBoxWindowWidth.Name = "textBoxWindowWidth";
             this.textBoxWindowWidth.Size = new System.Drawing.Size(171, 20);
             this.textBoxWindowWidth.TabIndex = 18;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(462, 227);
+            this.button5.Location = new System.Drawing.Point(462, 243);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(144, 82);
             this.button5.TabIndex = 22;
@@ -263,7 +272,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(462, 315);
+            this.button6.Location = new System.Drawing.Point(462, 331);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(144, 82);
             this.button6.TabIndex = 23;
@@ -273,7 +282,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(12, 490);
+            this.button7.Location = new System.Drawing.Point(12, 506);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(144, 82);
             this.button7.TabIndex = 24;
@@ -281,11 +290,63 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
+            this.toolStrip1.TabIndex = 25;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(38, 22);
+            this.toolStripDropDownButton1.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // ImageCollectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 584);
+            this.ClientSize = new System.Drawing.Size(800, 628);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -313,6 +374,10 @@
             this.Controls.Add(this.buttonListProcessNames);
             this.Name = "ImageCollectionForm";
             this.Text = "ImageCollectionForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageCollectionForm_FormClosing);
+            this.Load += new System.EventHandler(this.ImageCollectionForm_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,5 +410,11 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }

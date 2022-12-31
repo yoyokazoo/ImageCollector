@@ -99,5 +99,95 @@ namespace ImageCollector
             ImageProcessingForm imageProcessing = new ImageProcessingForm();
             imageProcessing.ShowDialog();
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ConfirmUnsavedChangesAction())
+            {
+                CreateNewProfile();
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profile = ImageCollectionProfile.Open();
+            UpdateControlsFromProfile();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profile.Save();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseForm();
+        }
+
+        // TODO: Some way to reuse this between forms
+        private ImageCollectionProfile profile;
+        private bool CloseForm()
+        {
+            if (ConfirmUnsavedChangesAction())
+            {
+                this.Close();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ConfirmUnsavedChangesAction()
+        {
+            if (profile.IsProfileUnsaved())
+            {
+                var confirmResult = MessageBox.Show("You have unsaved changes, would you like to proceed?",
+                                     "Unsaved Changes",
+                                     MessageBoxButtons.YesNo);
+
+                return confirmResult == DialogResult.Yes;
+            }
+
+            return true;
+        }
+
+        private void CreateNewProfile()
+        {
+            profile = new ImageCollectionProfile();
+            UpdateControlsFromProfile();
+        }
+
+        private void ImageCollectionForm_Load(object sender, EventArgs e)
+        {
+            CreateNewProfile();
+        }
+
+        private void UpdateControlsFromProfile()
+        {
+            textBoxProcessName.Text = profile.ProcessName;
+            textBoxProcessNum.Text = profile.ProcessNum.ToString();
+
+            textBoxWindowOffsetX.Text = profile.WindowOffsetX.ToString();
+            textBoxWindowOffsetY.Text = profile.WindowOffsetY.ToString();
+
+            textBoxWindowWidth.Text = profile.WindowWidth.ToString();
+            textBoxWindowHeight.Text = profile.WindowHeight.ToString();
+        }
+
+        private void ImageCollectionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !ConfirmUnsavedChangesAction();
+        }
+
+        private void ProcessName_TextChanged(object sender, EventArgs e)
+        {
+            profile.ProcessName = textBoxProcessName.Text;
+        }
+
+        private void ProcessNumTextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxProcessNum.Text, out int parseResult);
+            profile.ProcessNum = parseResult;
+        }
     }
 }

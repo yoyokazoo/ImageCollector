@@ -6,10 +6,11 @@ using System.Drawing;
 
 namespace ImageCollector
 {
-    public class ImageProcessingProfile
+    public class ImageProcessingProfile : SaveableProfile<ImageProcessingProfile>
     {
-        [JsonIgnore]
-        public ImageProcessingProfile initialProfile = null;
+        // TODO: hmmmm....
+        public new static string ProfileName => "ImageProcessingProfile";
+        public new static string ProfileFileExtension => "ipp";
 
         public string InputFolderPath { get; set; }
         public string OutputFolderPath { get; set; }
@@ -44,7 +45,7 @@ namespace ImageCollector
 
         public ImageProcessingProfile()
         {
-            initialProfile = null;
+            InitialProfile = null;
 
             InputFolderPath = null;
             OutputFolderPath = null;
@@ -68,65 +69,7 @@ namespace ImageCollector
             MostRecentPreviewFilePath = null;
         }
 
-        public void Save()
-        {
-            Stream fileStream;
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.Filter = "ImageProcessingProfile files (*.ipp)|*.ipp|All files (*.*)|*.*";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                if ((fileStream = saveFileDialog.OpenFile()) != null)
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-
-                    // TODO: This looks like it stinks!
-                    using (var sw = new StreamWriter(fileStream))
-                    {
-                        using (var jsonTextWriter = new JsonTextWriter(sw))
-                        {
-                            serializer.Serialize(jsonTextWriter, this);
-                        }
-                    }
-                }
-            }
-
-            // reset initial state so we can tell if we have unsaved changes
-            this.initialProfile = this.Clone();
-        }
-
-        public static ImageProcessingProfile Open()
-        {
-            Stream fileStream;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "ImageProcessingProfile files (*.ipp)|*.ipp|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                if ((fileStream = openFileDialog.OpenFile()) != null)
-                {
-                    // TODO: this looks like it SUPER STINKS
-                    using (StreamReader file = new StreamReader(fileStream))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        ImageProcessingProfile newProfile = (ImageProcessingProfile)serializer.Deserialize(file, typeof(ImageProcessingProfile));
-                        newProfile.initialProfile = newProfile.Clone();
-
-                        return newProfile;
-                    }
-                }
-            }
-
-            return new ImageProcessingProfile();
-        }
-
-        public ImageProcessingProfile Clone()
+        public override ImageProcessingProfile Clone()
         {
             ImageProcessingProfile newProfile = new ImageProcessingProfile();
 
@@ -146,11 +89,6 @@ namespace ImageCollector
             newProfile.MostRecentPreviewFilePath = this.MostRecentPreviewFilePath;
 
             return newProfile;
-        }
-
-        public bool IsProfileUnsaved()
-        {
-            return !this.Equals(initialProfile);
         }
 
         public override bool Equals(object otherObj)
