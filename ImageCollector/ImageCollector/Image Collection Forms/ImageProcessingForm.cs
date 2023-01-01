@@ -53,7 +53,7 @@ namespace ImageCollector.Image_Collection_Forms
             string outputImagePath = textBoxOutputFolder.Text;
 
             // TODO: eventually add ability to slice multiple
-            List<Rectangle> rectangles = GetRectangles();
+            List<Rectangle> rectangles = profile.GetRectangles();
             int sliceIndex = 0;
 
             foreach (var inputFilePath in inputImagePaths)
@@ -73,50 +73,6 @@ namespace ImageCollector.Image_Collection_Forms
 
                 sourceBitmap.Dispose();
             }
-        }
-
-        public List<Rectangle> GetRectangles()
-        {
-            List<Rectangle> rectangles = new List<Rectangle>();
-
-            int OffsetX = int.Parse(textBoxOffsetX.Text);
-            int OffsetY = int.Parse(textBoxOffsetY.Text);
-
-            int SliceWidth = int.Parse(textBoxWidth.Text);
-            int SliceHeight = int.Parse(textBoxHeight.Text);
-
-            int StepX = int.Parse(textBoxStepX.Text);
-            int StepY = int.Parse(textBoxStepY.Text);
-
-            int RepeatColumns = int.Parse(textBoxRepeatX.Text);
-            int RepeatRows = int.Parse(textBoxRepeatY.Text);
-
-            int startingY = OffsetY;
-            int endingY = startingY + Height;
-
-            for (int row = 0; row < RepeatRows; row++)
-            {
-                // set up X for new row
-                int startingX = OffsetX;
-                //startingX += AlternatingRowOffsetX * (row % 2); // every other row, alternate by X
-                int endingX = startingX + Width;
-
-                for (int column = 0; column < RepeatColumns; column++)
-                {
-                    Rectangle newRect = new Rectangle(startingX, startingY, SliceWidth, SliceHeight);
-                    rectangles.Add(newRect);
-
-                    startingX = endingX;
-                    startingX += StepX;
-                    endingX = startingX + Width;
-                }
-
-                startingY = endingY;
-                startingY += StepY;
-                endingY = startingY + Height;
-            }
-
-            return rectangles;
         }
 
         #region Profile Lifecycle
