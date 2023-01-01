@@ -292,5 +292,30 @@ namespace ImageCollector.Image_Collection_Forms
 
             UpdateControlsFromProfile();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string[] inputImagePaths = Directory.GetFiles(textBoxInputFolder.Text);
+            string outputImagePath = textBoxOutputFolder.Text;
+
+            List<Bitmap> allBitmaps = new List<Bitmap>();
+            foreach (var inputFilePath in inputImagePaths)
+            {
+                Bitmap sourceBitmap = new Bitmap(inputFilePath);
+                allBitmaps.Add(sourceBitmap);
+            }
+
+            List<Bitmap> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(allBitmaps);
+            for(int i = 0; i < uniqueBitmaps.Count; i++)
+            {
+                uniqueBitmaps[i].Save(Path.Combine(outputImagePath, $"Unique_{i}.bmp"), ImageFormat.Bmp);
+                uniqueBitmaps[i].Dispose();
+            }
+
+            foreach(var bmp in allBitmaps)
+            {
+                bmp.Dispose();
+            }
+        }
     }
 }
