@@ -74,16 +74,21 @@ namespace ImageCollector
             return true;
         }
 
-        public static List<Bitmap> FindUniqueBitmaps(List<Bitmap> sourceBitmaps)
+        public static List<Tuple<Bitmap, int>> FindUniqueBitmaps(List<Bitmap> sourceBitmaps)
         {
-            List<Bitmap> uniqueBitmaps = new List<Bitmap>();
+            List<Tuple<Bitmap, int>> uniqueBitmaps = new List<Tuple<Bitmap, int>>();
 
             foreach (Bitmap bmp in sourceBitmaps)
             {
+                var existingTupleIndex = uniqueBitmaps.FindIndex((uniqueBmpTuple) => BitmapEqualsMemCmp(uniqueBmpTuple.Item1, bmp));
                 // n^2
-                if(!uniqueBitmaps.Any((uniqueBmp) => BitmapEqualsMemCmp(uniqueBmp, bmp)))
+                if (existingTupleIndex >= 0)
                 {
-                    uniqueBitmaps.Add(bmp);
+                    uniqueBitmaps[existingTupleIndex] = new Tuple<Bitmap, int>(uniqueBitmaps[existingTupleIndex].Item1, uniqueBitmaps[existingTupleIndex].Item2 + 1);
+                }
+                else
+                {
+                    uniqueBitmaps.Add(new Tuple<Bitmap, int>(bmp, 1));
                 }
             }
 

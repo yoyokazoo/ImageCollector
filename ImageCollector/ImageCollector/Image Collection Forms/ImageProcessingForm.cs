@@ -261,11 +261,12 @@ namespace ImageCollector.Image_Collection_Forms
                 allBitmaps.Add(sourceBitmap);
             }
 
-            List<Bitmap> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(allBitmaps);
+            List<Tuple<Bitmap, int>> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(allBitmaps);
             for(int i = 0; i < uniqueBitmaps.Count; i++)
             {
-                uniqueBitmaps[i].Save(Path.Combine(outputImagePath, $"Unique_{i}.bmp"), ImageFormat.Bmp);
-                uniqueBitmaps[i].Dispose();
+                int occurrences = uniqueBitmaps[i].Item2;
+                uniqueBitmaps[i].Item1.Save(Path.Combine(outputImagePath, $"Unique_{occurrences}_{i}.bmp"), ImageFormat.Bmp);
+                uniqueBitmaps[i].Item1.Dispose();
             }
 
             foreach(var bmp in allBitmaps)
