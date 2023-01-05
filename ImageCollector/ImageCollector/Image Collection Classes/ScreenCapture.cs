@@ -468,6 +468,25 @@ namespace ImageCollector
             }
         }
 
+        public static List<Bitmap> GetBitmapsFromInputFolderPath(string inputFolderPath)
+        {
+            string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
+            return GetBitmapsFromFilePaths(sourceFilePaths);
+        }
+
+        public static List<Bitmap> GetBitmapsFromFilePaths(string[] sourceFilePaths)
+        {
+            List<Bitmap> bitmaps = new List<Bitmap>();
+
+            foreach (var inputFilePath in sourceFilePaths)
+            {
+                Bitmap sourceBitmap = new Bitmap(inputFilePath);
+                bitmaps.Add(sourceBitmap);
+            }
+
+            return bitmaps;
+        }
+
         #endregion
 
         #region Window Manipulation

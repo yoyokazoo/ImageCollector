@@ -49,17 +49,15 @@ namespace ImageCollector.Image_Collection_Forms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string[] inputImagePaths = Directory.GetFiles(textBoxInputFolder.Text);
+            List<Bitmap> sourceBitmaps = ScreenCapture.GetBitmapsFromInputFolderPath(textBoxInputFolder.Text);
             string outputImagePath = textBoxOutputFolder.Text;
 
             // TODO: eventually add ability to slice multiple
             List<Rectangle> rectangles = profile.GetRectangles();
             int sliceIndex = 0;
 
-            foreach (var inputFilePath in inputImagePaths)
+            foreach (var sourceBitmap in sourceBitmaps)
             {
-                Bitmap sourceBitmap = new Bitmap(inputFilePath);
-
                 foreach (Rectangle r in rectangles)
                 {
                     string imagePath = Path.Combine(outputImagePath, $"Slice_{sliceIndex}.bmp");
@@ -251,17 +249,10 @@ namespace ImageCollector.Image_Collection_Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            string[] inputImagePaths = Directory.GetFiles(textBoxInputFolder.Text);
+            List<Bitmap> sourceBitmaps = ScreenCapture.GetBitmapsFromInputFolderPath(profile.InputFolderPath);
             string outputImagePath = textBoxOutputFolder.Text;
 
-            List<Bitmap> allBitmaps = new List<Bitmap>();
-            foreach (var inputFilePath in inputImagePaths)
-            {
-                Bitmap sourceBitmap = new Bitmap(inputFilePath);
-                allBitmaps.Add(sourceBitmap);
-            }
-
-            List<Tuple<Bitmap, int>> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(allBitmaps);
+            List<Tuple<Bitmap, int>> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(sourceBitmaps);
             for(int i = 0; i < uniqueBitmaps.Count; i++)
             {
                 int occurrences = uniqueBitmaps[i].Item2;
@@ -269,10 +260,18 @@ namespace ImageCollector.Image_Collection_Forms
                 uniqueBitmaps[i].Item1.Dispose();
             }
 
-            foreach(var bmp in allBitmaps)
+            foreach(var bmp in sourceBitmaps)
             {
                 bmp.Dispose();
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string inputFolderPath = profile.InputFolderPath;
+            List<Tuple<string, List<Color>>> uniqueColorCoordinates = ImageComparison.FindUniqueColorCoordinates(inputFolderPath);
+
+            Console.WriteLine();
         }
     }
 }
