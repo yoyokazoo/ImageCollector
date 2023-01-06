@@ -129,9 +129,22 @@ namespace ImageCollector
         }
 
         // asdf
+        public class UniquePixel
+        {
+            public Point Point { get; set; }
+            public Color Color { get; set; }
+            public string FilePath { get; set; }
+
+            public override string ToString()
+            {
+                return $"UniquePixel -- Point: {Point} Color: {Color} FilePath: {FilePath}";
+            }
+        }
+
         public static List<Tuple<string, List<Color>>> FindUniqueColorCoordinates(string inputFolderPath)
         {
             List<Tuple<string, List<Color>>> uniqueColorCoordinates = new List<Tuple<string, List<Color>>>();
+            List<UniquePixel> uniquePixels = new List<UniquePixel>();
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
 
             int maxWidth = 0;
@@ -139,16 +152,142 @@ namespace ImageCollector
 
             bool completeUniquenessFound = false;
             int round = 0;
+            List<Bitmap> sourceImages = new List<Bitmap>();
+
             foreach (string sourceFilePath in sourceFilePaths)
             {
+                Bitmap image = new Bitmap(sourceFilePath);
+                
+                if (maxWidth == 0 && maxHeight == 0)
+                {
+                    maxWidth = image.Width;
+                    maxHeight = image.Height;
+                }
+                else if(maxWidth != image.Width || maxHeight != image.Height)
+                {
+                    throw new Exception("Not all images are the same size!");
+                }
 
+                sourceImages.Add(new Bitmap(sourceFilePath));
             }
+
+            //while (sourceImages.Any())
+            //{
+                round++;
+                int minPixelUniqueness = int.MaxValue;
+                UniquePixel mostUniquePixel = null;
+
+                for(int x = 0; x < maxWidth; x++)
+                {
+                    for (int y = 0; y < maxHeight; y++)
+                    {
+                        Point pixelTuple = new Point(x, y);
+                        List<Color> pixelsSeenSoFar = new List<Color>();
+                        int pixelDupeCount = 0;
+                        List<string> dupes = new List<string>();
+                        string mostRecentSourceFilePath = null;
+                        Color pixelBeingChecked = Color.Transparent;
+
+                        foreach (string sourceFilePath in sourceFilePaths)
+                        {
+                            mostRecentSourceFilePath = sourceFilePath;
+                            Bitmap image = new Bitmap(sourceFilePath);
+                            //UniquePixel pixelBeingChecked = new UniquePixel { Point = pixelTuple, Color = image.GetPixel(x, y), FilePath = sourceFilePath };
+                            pixelBeingChecked = image.GetPixel(x, y);
+
+                            UniquePixel uniquePixel = uniquePixels.FirstOrDefault(up => up.Point.Equals(pixelTuple));
+                            if (uniquePixel != null && uniquePixel.FilePath.Equals(sourceFilePath))
+                            {
+                                Console.WriteLine($"Pixel being checked is a 'unique pixel' {pixelTuple}, stored val is {uniquePixel}, my val is {pixelBeingChecked} ({sourceFilePath}).  Skipping.");
+                                Console.WriteLine($"Skipping already unique pixel {pixelTuple}");
+                                continue;
+                            }
+
+                            if (pixelsSeenSoFar.Contains(pixelBeingChecked))
+                            {
+                                pixelDupeCount++;
+                                dupes.Add(sourceFilePath);
+                            }
+                            else
+                            {
+                                //Console.WriteLine($"First pixel seen for {pixelTuple} = {pixelBeingChecked} ({sourceFilePath})");
+                                pixelsSeenSoFar.Add(pixelBeingChecked);
+                            }
+                        }
+
+                        if (pixelDupeCount < minPixelUniqueness && uniquePixels.FirstOrDefault(up => up.Point.Equals(pixelTuple)) == null)
+                        {
+                            Console.WriteLine($"Pixel dupe count for pixel {pixelTuple} = {pixelDupeCount}. Color = {pixelBeingChecked}  Dupes = {string.Join(",", dupes)}");
+                            minPixelUniqueness = pixelDupeCount;
+                            mostUniquePixel = new UniquePixel { Point = pixelTuple, Color = pixelBeingChecked, FilePath = mostRecentSourceFilePath };
+                        }
+                    }
+                //}
+            }
+
+            Console.WriteLine($"After round {round}, mostUniquePixel = {mostUniquePixel}");
+
+            uniquePixels.Add(mostUniquePixel);
+
+            // since this is more of a preprocessing tool than a runtime tool I haven't focused
+            // on performance but if that becomes a concern this could probably be cleaned up
+            Dictionary<Color, int> pixelFrequency = GetPixelFrequency(mostUniquePixel.Point, sourceFilePaths);
+            PrintPixelFrequency(mostUniquePixel.Point, pixelFrequency);
+
+
+            /*
+                culledImages = { }
+                    for imagePath in images:
+
+                        image = images[imagePath]
+    
+                    if not pixelFrequency[image.getpixel(mostUniquePixel[0])] == 1:
+				        culledImages[imagePath] = image
+
+
+                images = culledImages
+            */
 
             // TODO: in a perfect world we'd create a branching scenario where we choose either the most unique or the most
             // splitting at each level, then assuming an equal distribution calculate the average case at the end and
             // picking the most efficient solution.  For now this is fine though
 
             return uniqueColorCoordinates;
+        }
+
+        public static void PrintPixelFrequency(Point pixel, Dictionary<Color, int> pixelFrequency)
+        {
+            Console.WriteLine($"Pixel frequency for {pixel}:");
+            foreach (var pixelValue in pixelFrequency.Keys)
+            {
+                Console.WriteLine($"\tFrequency of {pixelValue} = {pixelFrequency[pixelValue]}");
+            }
+        }
+
+        public static Dictionary<Color, int> GetPixelFrequency(Point point, string[] sourceFilePaths)
+        {
+            Dictionary<Color, int> pixelFrequency = new Dictionary<Color, int>();
+
+            foreach (string sourceFilePath in sourceFilePaths)
+            {
+                Bitmap image = new Bitmap(sourceFilePath);
+                Color color = image.GetPixel(point.X, point.Y);
+
+                Console.WriteLine($"Pixel value = {color} for image {sourceFilePath}");
+
+                if (pixelFrequency.ContainsKey(color))
+                {
+                    pixelFrequency[color] = pixelFrequency[color] + 1;
+                }
+                else
+                {
+                    pixelFrequency[color] = 1;
+                }
+
+                image.Dispose();
+            }
+            
+            return pixelFrequency;
         }
     }
 }
@@ -301,3 +440,4 @@ uniquePixels = findUniquePixels(loadedImages)
 #printUniquePixels(uniquePixels, loadedImages)
 
 */
+  
