@@ -222,6 +222,13 @@ namespace ImageCollector
                             minPixelUniqueness = pixelDupeCount;
                             mostUniquePixel = new UniquePixel { Point = pixelTuple, Color = pixelBeingChecked, FilePath = mostRecentSourceFilePath };
                         }
+                        else if (pixelDupeCount == minPixelUniqueness && uniquePixels.FirstOrDefault(up => up.Point.Equals(pixelTuple)) == null)
+                        {
+                            Console.WriteLine($"We've found an equally unique pixel.  Let's pick the one that has the color values the furthest from one another. Pixel dupe count for pixel {pixelTuple} = {pixelDupeCount}. Color = {pixelBeingChecked}  Dupes = {string.Join(", ", dupes)}");
+                            // Find average pixel color
+                            // For each pixel, find the average difference from the average
+                            // Pick whichever unique pixel has the highest average difference
+                        }
                     }
                 }
 
