@@ -146,6 +146,7 @@ namespace ImageCollector
             List<Tuple<string, List<Color>>> uniqueColorCoordinates = new List<Tuple<string, List<Color>>>();
             List<UniquePixel> uniquePixels = new List<UniquePixel>();
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
+            List<string> remainingSourceFilePaths = sourceFilePaths.ToList();
 
             int maxWidth = 0;
             int maxHeight = 0;
@@ -171,8 +172,8 @@ namespace ImageCollector
                 sourceImages.Add(new Bitmap(sourceFilePath));
             }
 
-            //while (sourceImages.Any())
-            //{
+            while (remainingSourceFilePaths.Any())
+            {
                 round++;
                 int minPixelUniqueness = int.MaxValue;
                 UniquePixel mostUniquePixel = null;
@@ -188,7 +189,7 @@ namespace ImageCollector
                         string mostRecentSourceFilePath = null;
                         Color pixelBeingChecked = Color.Transparent;
 
-                        foreach (string sourceFilePath in sourceFilePaths)
+                        foreach (string sourceFilePath in remainingSourceFilePaths)
                         {
                             mostRecentSourceFilePath = sourceFilePath;
                             Bitmap image = new Bitmap(sourceFilePath);
@@ -222,31 +223,23 @@ namespace ImageCollector
                             mostUniquePixel = new UniquePixel { Point = pixelTuple, Color = pixelBeingChecked, FilePath = mostRecentSourceFilePath };
                         }
                     }
-                //}
+                }
+
+                Console.WriteLine($"After round {round}, mostUniquePixel = {mostUniquePixel}");
+
+                uniquePixels.Add(mostUniquePixel);
+
+                // since this is more of a preprocessing tool than a runtime tool I haven't focused
+                // on performance but if that becomes a concern this could probably be cleaned up
+                List<UniquePixel> pixelFrequency = GetSinglePixelFrequency(mostUniquePixel.Point, remainingSourceFilePaths);
+                PrintSinglePixelFrequency(mostUniquePixel.Point, pixelFrequency);
+
+                foreach (var pixel in pixelFrequency)
+                {
+                    remainingSourceFilePaths.Remove(pixel.FilePath);
+                }
+                Console.WriteLine($"Remaining source file paths ({remainingSourceFilePaths.Count}): {string.Join(",", remainingSourceFilePaths)}");
             }
-
-            Console.WriteLine($"After round {round}, mostUniquePixel = {mostUniquePixel}");
-
-            uniquePixels.Add(mostUniquePixel);
-
-            // since this is more of a preprocessing tool than a runtime tool I haven't focused
-            // on performance but if that becomes a concern this could probably be cleaned up
-            Dictionary<Color, int> pixelFrequency = GetPixelFrequency(mostUniquePixel.Point, sourceFilePaths);
-            PrintPixelFrequency(mostUniquePixel.Point, pixelFrequency);
-
-
-            /*
-                culledImages = { }
-                    for imagePath in images:
-
-                        image = images[imagePath]
-    
-                    if not pixelFrequency[image.getpixel(mostUniquePixel[0])] == 1:
-				        culledImages[imagePath] = image
-
-
-                images = culledImages
-            */
 
             // TODO: in a perfect world we'd create a branching scenario where we choose either the most unique or the most
             // splitting at each level, then assuming an equal distribution calculate the average case at the end and
@@ -255,23 +248,27 @@ namespace ImageCollector
             return uniqueColorCoordinates;
         }
 
-        public static void PrintPixelFrequency(Point pixel, Dictionary<Color, int> pixelFrequency)
+        public static void PrintSinglePixelFrequency(Point pixel, List<UniquePixel> pixelFrequency)
         {
             Console.WriteLine($"Pixel frequency for {pixel}:");
-            foreach (var pixelValue in pixelFrequency.Keys)
+            foreach (var pixelValue in pixelFrequency)
             {
-                Console.WriteLine($"\tFrequency of {pixelValue} = {pixelFrequency[pixelValue]}");
+                Console.WriteLine($"\tFrequency of {pixelValue} = 1");
             }
         }
 
-        public static Dictionary<Color, int> GetPixelFrequency(Point point, string[] sourceFilePaths)
+        // returns a list of unqiue pixels with color frequency 1 (aka can be uniquely identified by this point
+        public static List<UniquePixel> GetSinglePixelFrequency(Point point, List<string> sourceFilePaths)
         {
             Dictionary<Color, int> pixelFrequency = new Dictionary<Color, int>();
+            List<UniquePixel> allUniquePixels = new List<UniquePixel>();
 
             foreach (string sourceFilePath in sourceFilePaths)
             {
                 Bitmap image = new Bitmap(sourceFilePath);
                 Color color = image.GetPixel(point.X, point.Y);
+                UniquePixel uniquePixel = new UniquePixel { Point = point, Color = color, FilePath = sourceFilePath };
+                allUniquePixels.Add(uniquePixel);
 
                 Console.WriteLine($"Pixel value = {color} for image {sourceFilePath}");
 
@@ -286,8 +283,8 @@ namespace ImageCollector
 
                 image.Dispose();
             }
-            
-            return pixelFrequency;
+
+            return allUniquePixels.FindAll(up => pixelFrequency[up.Color] == 1);
         }
     }
 }
