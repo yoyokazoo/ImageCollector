@@ -141,17 +141,16 @@ namespace ImageCollector
             }
         }
 
-        public static List<Tuple<string, List<Color>>> FindUniqueColorCoordinates(string inputFolderPath)
+        public static List<Point> FindUniqueColorPoints(string inputFolderPath)
         {
-            List<Tuple<string, List<Color>>> uniqueColorCoordinates = new List<Tuple<string, List<Color>>>();
             List<UniquePixel> uniquePixels = new List<UniquePixel>();
+
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
             List<string> remainingSourceFilePaths = sourceFilePaths.ToList();
 
             int maxWidth = 0;
             int maxHeight = 0;
 
-            bool completeUniquenessFound = false;
             int round = 0;
             List<Bitmap> sourceImages = new List<Bitmap>();
 
@@ -224,7 +223,7 @@ namespace ImageCollector
                         }
                         else if (pixelDupeCount == minPixelUniqueness && uniquePixels.FirstOrDefault(up => up.Point.Equals(pixelTuple)) == null)
                         {
-                            Console.WriteLine($"We've found an equally unique pixel.  Let's pick the one that has the color values the furthest from one another. Pixel dupe count for pixel {pixelTuple} = {pixelDupeCount}. Color = {pixelBeingChecked}  Dupes = {string.Join(", ", dupes)}");
+                            //Console.WriteLine($"We've found an equally unique pixel.  Let's pick the one that has the color values the furthest from one another. Pixel dupe count for pixel {pixelTuple} = {pixelDupeCount}. Color = {pixelBeingChecked}  Dupes = {string.Join(", ", dupes)}");
                             // Find average pixel color
                             // For each pixel, find the average difference from the average
                             // Pick whichever unique pixel has the highest average difference
@@ -248,11 +247,34 @@ namespace ImageCollector
                 Console.WriteLine($"Remaining source file paths ({remainingSourceFilePaths.Count}): {string.Join(",", remainingSourceFilePaths)}");
             }
 
-            // TODO: in a perfect world we'd create a branching scenario where we choose either the most unique or the most
-            // splitting at each level, then assuming an equal distribution calculate the average case at the end and
-            // picking the most efficient solution.  For now this is fine though
+            return uniquePixels.Select(up => up.Point).ToList();
+        }
 
-            return uniqueColorCoordinates;
+        public static void PrintUniqueColorPoints(List<Point> uniqueColorPoints)
+        {
+            IEnumerable<string> uniqueColorPointStrings = uniqueColorPoints.Select(ucp => $"new Point({ucp.X}, {ucp.Y})");
+            Console.WriteLine("Unique Color Points:");
+            Console.WriteLine($"public static readonly List<Point> _COLOR_POSITIONS = new List<Point> {{ {string.Join(", ", uniqueColorPointStrings)} }};");
+        }
+
+        public static void PrintUniqueColorPointsForImages(List<Point> uniqueColorPoints, string inputFolderPath)
+        {
+            string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
+            //IEnumerable<Bitmap> bitmaps = sourceFilePaths.Select(sfp => new Bitmap(sfp));
+
+            Console.WriteLine("Unique Color Points:");
+            foreach (string sourceFilePath in sourceFilePaths)
+            {
+                Bitmap bitmap = new Bitmap(sourceFilePath);
+                List<Color> colors = new List<Color>();
+                foreach (Point point in uniqueColorPoints)
+                {
+                    colors.Add(bitmap.GetPixel(point.X, point.Y));
+                }
+
+                IEnumerable<string> colorStrings = colors.Select(c => $"Color.FromArgb({c.R}, {c.G}, {c.B})");
+                Console.WriteLine($"public static readonly List<Point> _COLORS = new List<Color> {{ {string.Join(", ", colorStrings)} }}; // {sourceFilePath}");
+            }
         }
 
         public static void PrintSinglePixelFrequency(Point pixel, List<UniquePixel> pixelFrequency)
