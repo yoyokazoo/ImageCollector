@@ -67,6 +67,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.textBoxSlicePrefix = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -396,11 +398,30 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // textBoxSlicePrefix
+            // 
+            this.textBoxSlicePrefix.Location = new System.Drawing.Point(491, 210);
+            this.textBoxSlicePrefix.Name = "textBoxSlicePrefix";
+            this.textBoxSlicePrefix.Size = new System.Drawing.Size(116, 20);
+            this.textBoxSlicePrefix.TabIndex = 32;
+            this.textBoxSlicePrefix.TextChanged += new System.EventHandler(this.textBoxSlicePrefix_TextChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(422, 213);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(59, 13);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Slice Prefix";
+            // 
             // ImageProcessingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 729);
+            this.Controls.Add(this.textBoxSlicePrefix);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -483,5 +504,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox textBoxSlicePrefix;
+        private System.Windows.Forms.Label label12;
     }
 }

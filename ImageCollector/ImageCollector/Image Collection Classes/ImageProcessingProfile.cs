@@ -44,6 +44,8 @@ namespace ImageCollector
         public int RepeatX { get; set; }
         public int RepeatY { get; set; }
 
+        public string SlicePrefix { get; set; }
+
         public string MostRecentPreviewFilePath { get; set; }
 
         public ImageProcessingProfile()
@@ -69,6 +71,8 @@ namespace ImageCollector
             AlternatingRowOffsetX = 0;
             AlternatingRowOffsetY = 0;
 
+            SlicePrefix = string.Empty;
+
             MostRecentPreviewFilePath = null;
         }
 
@@ -88,6 +92,7 @@ namespace ImageCollector
             newProfile.RepeatX = this.RepeatX;
             newProfile.RepeatY = this.RepeatY;
             newProfile.MostRecentPreviewFilePath = this.MostRecentPreviewFilePath;
+            newProfile.SlicePrefix = this.SlicePrefix;
 
             return newProfile;
         }
@@ -109,7 +114,8 @@ namespace ImageCollector
                this.RepeatY != otherProfile.RepeatY ||
                this.AlternatingRowOffsetX != otherProfile.AlternatingRowOffsetX ||
                this.AlternatingRowOffsetY != otherProfile.AlternatingRowOffsetY ||
-               this.MostRecentPreviewFilePath != otherProfile.MostRecentPreviewFilePath)
+               this.MostRecentPreviewFilePath != otherProfile.MostRecentPreviewFilePath ||
+               !string.Equals(this.SlicePrefix, otherProfile.SlicePrefix))
             {
                 return false;
             }

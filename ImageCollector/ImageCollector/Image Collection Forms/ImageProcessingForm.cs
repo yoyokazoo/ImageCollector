@@ -49,18 +49,20 @@ namespace ImageCollector.Image_Collection_Forms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            List<Bitmap> sourceBitmaps = ScreenCapture.GetBitmapsFromInputFolderPath(textBoxInputFolder.Text);
+            string[] sourceFilePaths = Directory.GetFiles(textBoxInputFolder.Text);
             string outputImagePath = textBoxOutputFolder.Text;
 
             // TODO: eventually add ability to slice multiple
             List<Rectangle> rectangles = profile.GetRectangles();
             int sliceIndex = 0;
 
-            foreach (var sourceBitmap in sourceBitmaps)
+            foreach (var sourceFilePath in sourceFilePaths)
             {
+                Bitmap sourceBitmap = new Bitmap(sourceFilePath);
+
                 foreach (Rectangle r in rectangles)
                 {
-                    string imagePath = Path.Combine(outputImagePath, $"Slice_{sliceIndex}.bmp");
+                    string imagePath = Path.Combine(outputImagePath, $"{profile.SlicePrefix}Slice_{sliceIndex}.bmp");
 
                     Bitmap destinationBitmap = sourceBitmap.Clone(r, System.Drawing.Imaging.PixelFormat.Undefined);
                     destinationBitmap.Save(imagePath, ImageFormat.Bmp);
@@ -131,6 +133,8 @@ namespace ImageCollector.Image_Collection_Forms
 
             textBoxRepeatX.Text = profile.RepeatX.ToString();
             textBoxRepeatY.Text = profile.RepeatY.ToString();
+
+            textBoxSlicePrefix.Text = profile.SlicePrefix;
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------
@@ -272,6 +276,11 @@ namespace ImageCollector.Image_Collection_Forms
             List<Tuple<string, List<Color>>> uniqueColorCoordinates = ImageComparison.FindUniqueColorCoordinates(inputFolderPath);
 
             Console.WriteLine();
+        }
+
+        private void textBoxSlicePrefix_TextChanged(object sender, EventArgs e)
+        {
+            profile.SlicePrefix = textBoxSlicePrefix.Text;
         }
     }
 }

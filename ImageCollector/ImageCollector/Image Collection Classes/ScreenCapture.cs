@@ -468,6 +468,7 @@ namespace ImageCollector
             }
         }
 
+        // Typically not a good idea if the images are large or we have a lot of them
         public static List<Bitmap> GetBitmapsFromInputFolderPath(string inputFolderPath)
         {
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
