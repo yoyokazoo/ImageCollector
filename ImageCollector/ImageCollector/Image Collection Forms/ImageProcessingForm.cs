@@ -268,45 +268,10 @@ namespace ImageCollector.Image_Collection_Forms
 
         private void button8_Click(object sender, EventArgs e)
         {
-            //string inputFolderPath = profile.InputFolderPath;
-            //List<Point> uniqueColorPoints = ImageComparison.FindUniqueColorPoints(inputFolderPath);
-            //ImageComparison.PrintUniqueColorPoints(uniqueColorPoints);
-            //ImageComparison.PrintUniqueColorPointsForImages(uniqueColorPoints, inputFolderPath);
-
-            Dictionary<Color, int> Dict0 = new Dictionary<Color, int>();
-            Dict0[Color.FromArgb(2, 2, 2)] = 2;
-            Dict0[Color.FromArgb(3, 3, 3)] = 3;
-
-            Dictionary<Color, int> Dict1 = new Dictionary<Color, int>();
-            Dict1[Color.FromArgb(4, 4, 4)] = 4;
-            Dict1[Color.FromArgb(5, 5, 5)] = 5;
-
-            Dictionary<Color, Dictionary<Color, int>> colorPointDict = new Dictionary<Color, Dictionary<Color, int>>();
-            colorPointDict[Color.FromArgb(0, 0, 0)] = Dict0;
-            colorPointDict[Color.FromArgb(1, 1, 1)] = Dict1;
-
-            Color input0 = Color.FromArgb(0, 0, 0);
-            Color input1 = Color.FromArgb(3, 3, 3);
-
-            colorPointDict.TryGetValue(input0, out var subDict);
-            if (subDict == null)
-            {
-                Console.WriteLine("Invalid Input0");
-            }
-            else
-            {
-                subDict.TryGetValue(input1, out var resultInt);
-                if (resultInt == null)
-                {
-                    Console.WriteLine("Invalid Input1");
-                }
-                else
-                {
-                    Console.WriteLine($"Result Int = {resultInt}");
-                }
-            }
-
-            Console.WriteLine();
+            string inputFolderPath = profile.InputFolderPath;
+            List<Point> uniqueColorPoints = ImageComparison.FindUniqueColorPoints(inputFolderPath);
+            ImageComparison.PrintUniqueColorPoints(uniqueColorPoints);
+            ImageComparison.PrintUniqueColorPointsForImages(uniqueColorPoints, inputFolderPath);
         }
     }
 }
