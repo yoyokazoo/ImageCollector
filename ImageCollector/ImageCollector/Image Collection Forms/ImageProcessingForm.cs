@@ -277,9 +277,9 @@ namespace ImageCollector.Image_Collection_Forms
         private void button8_Click(object sender, EventArgs e)
         {
             string inputFolderPath = profile.InputFolderPath;
-            List<Tuple<string, List<Color>>> uniqueColorCoordinates = ImageComparison.FindUniqueColorCoordinates(inputFolderPath);
-
-            Console.WriteLine();
+            List<Point> uniqueColorPoints = ImageComparison.FindUniqueColorPoints(inputFolderPath);
+            ImageComparison.PrintUniqueColorPoints(uniqueColorPoints);
+            ImageComparison.PrintUniqueColorPointsForImages(uniqueColorPoints, inputFolderPath);
         }
 
         private void textBoxSlicePrefix_TextChanged(object sender, EventArgs e)
