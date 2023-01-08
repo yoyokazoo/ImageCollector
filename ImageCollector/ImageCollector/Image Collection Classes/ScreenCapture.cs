@@ -330,7 +330,7 @@ namespace ImageCollector
             return newDirectoryPath;
         }
 
-        private static void BlowAwayFolderContents(string folderPath)
+        public static void BlowAwayFolderContents(string folderPath)
         {
             var files = Directory.EnumerateFiles(folderPath);
 

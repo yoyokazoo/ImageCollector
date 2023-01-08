@@ -52,6 +52,8 @@ namespace ImageCollector.Image_Collection_Forms
             string[] sourceFilePaths = Directory.GetFiles(textBoxInputFolder.Text);
             string outputImagePath = textBoxOutputFolder.Text;
 
+            ScreenCapture.BlowAwayFolderContents(outputImagePath);
+
             // TODO: eventually add ability to slice multiple
             List<Rectangle> rectangles = profile.GetRectangles();
             int sliceIndex = 0;
@@ -255,6 +257,8 @@ namespace ImageCollector.Image_Collection_Forms
         {
             List<Bitmap> sourceBitmaps = ScreenCapture.GetBitmapsFromInputFolderPath(profile.InputFolderPath);
             string outputImagePath = textBoxOutputFolder.Text;
+
+            ScreenCapture.BlowAwayFolderContents(outputImagePath);
 
             List<Tuple<Bitmap, int>> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(sourceBitmaps);
             for(int i = 0; i < uniqueBitmaps.Count; i++)
