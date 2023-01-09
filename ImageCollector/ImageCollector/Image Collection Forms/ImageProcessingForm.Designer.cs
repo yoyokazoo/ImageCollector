@@ -69,6 +69,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.textBoxSlicePrefix = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.checkBoxBlowAwayFolderContents = new System.Windows.Forms.CheckBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -415,11 +416,23 @@
             this.label12.TabIndex = 31;
             this.label12.Text = "Slice Prefix";
             // 
+            // checkBoxBlowAwayFolderContents
+            // 
+            this.checkBoxBlowAwayFolderContents.AutoSize = true;
+            this.checkBoxBlowAwayFolderContents.Location = new System.Drawing.Point(425, 238);
+            this.checkBoxBlowAwayFolderContents.Name = "checkBoxBlowAwayFolderContents";
+            this.checkBoxBlowAwayFolderContents.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxBlowAwayFolderContents.TabIndex = 33;
+            this.checkBoxBlowAwayFolderContents.Text = "Blow Away Folder Contents";
+            this.checkBoxBlowAwayFolderContents.UseVisualStyleBackColor = true;
+            this.checkBoxBlowAwayFolderContents.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // ImageProcessingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 729);
+            this.Controls.Add(this.checkBoxBlowAwayFolderContents);
             this.Controls.Add(this.textBoxSlicePrefix);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.button8);
@@ -506,5 +519,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBoxSlicePrefix;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox checkBoxBlowAwayFolderContents;
     }
 }

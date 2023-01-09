@@ -52,7 +52,10 @@ namespace ImageCollector.Image_Collection_Forms
             string[] sourceFilePaths = Directory.GetFiles(textBoxInputFolder.Text);
             string outputImagePath = textBoxOutputFolder.Text;
 
-            ScreenCapture.BlowAwayFolderContents(outputImagePath);
+            if (profile.BlowAwayFolderContents)
+            {
+                ScreenCapture.BlowAwayFolderContents(outputImagePath);
+            }
 
             // TODO: eventually add ability to slice multiple
             List<Rectangle> rectangles = profile.GetRectangles();
@@ -137,6 +140,7 @@ namespace ImageCollector.Image_Collection_Forms
             textBoxRepeatY.Text = profile.RepeatY.ToString();
 
             textBoxSlicePrefix.Text = profile.SlicePrefix;
+            checkBoxBlowAwayFolderContents.Checked = profile.BlowAwayFolderContents;
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------
@@ -258,7 +262,10 @@ namespace ImageCollector.Image_Collection_Forms
             List<Bitmap> sourceBitmaps = ScreenCapture.GetBitmapsFromInputFolderPath(profile.InputFolderPath);
             string outputImagePath = textBoxOutputFolder.Text;
 
-            ScreenCapture.BlowAwayFolderContents(outputImagePath);
+            if (profile.BlowAwayFolderContents)
+            {
+                ScreenCapture.BlowAwayFolderContents(outputImagePath);
+            }
 
             List<Tuple<Bitmap, int>> uniqueBitmaps = ImageComparison.FindUniqueBitmaps(sourceBitmaps);
             for(int i = 0; i < uniqueBitmaps.Count; i++)
@@ -285,6 +292,11 @@ namespace ImageCollector.Image_Collection_Forms
         private void textBoxSlicePrefix_TextChanged(object sender, EventArgs e)
         {
             profile.SlicePrefix = textBoxSlicePrefix.Text;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            profile.BlowAwayFolderContents = checkBoxBlowAwayFolderContents.Checked;
         }
     }
 }

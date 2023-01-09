@@ -46,6 +46,8 @@ namespace ImageCollector
 
         public string SlicePrefix { get; set; }
 
+        public bool BlowAwayFolderContents { get; set; }
+
         public string MostRecentPreviewFilePath { get; set; }
 
         public ImageProcessingProfile()
@@ -72,6 +74,7 @@ namespace ImageCollector
             AlternatingRowOffsetY = 0;
 
             SlicePrefix = string.Empty;
+            BlowAwayFolderContents = false;
 
             MostRecentPreviewFilePath = null;
         }
@@ -93,6 +96,7 @@ namespace ImageCollector
             newProfile.RepeatY = this.RepeatY;
             newProfile.MostRecentPreviewFilePath = this.MostRecentPreviewFilePath;
             newProfile.SlicePrefix = this.SlicePrefix;
+            newProfile.BlowAwayFolderContents = this.BlowAwayFolderContents;
 
             return newProfile;
         }
@@ -115,7 +119,8 @@ namespace ImageCollector
                this.AlternatingRowOffsetX != otherProfile.AlternatingRowOffsetX ||
                this.AlternatingRowOffsetY != otherProfile.AlternatingRowOffsetY ||
                this.MostRecentPreviewFilePath != otherProfile.MostRecentPreviewFilePath ||
-               !string.Equals(this.SlicePrefix, otherProfile.SlicePrefix))
+               !string.Equals(this.SlicePrefix, otherProfile.SlicePrefix) ||
+               this.BlowAwayFolderContents != otherProfile.BlowAwayFolderContents)
             {
                 return false;
             }
