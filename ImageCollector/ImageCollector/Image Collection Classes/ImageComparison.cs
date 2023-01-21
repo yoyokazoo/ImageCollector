@@ -191,7 +191,17 @@ namespace ImageCollector
                         foreach (string sourceFilePath in remainingSourceFilePaths)
                         {
                             mostRecentSourceFilePath = sourceFilePath;
-                            Bitmap image = new Bitmap(sourceFilePath);
+                            Bitmap image = null;
+
+                            try
+                            {
+                                image = new Bitmap(sourceFilePath);
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine($"BOOOOOO{e}");
+                            }
+                            
                             //UniquePixel pixelBeingChecked = new UniquePixel { Point = pixelTuple, Color = image.GetPixel(x, y), FilePath = sourceFilePath };
                             pixelBeingChecked = image.GetPixel(x, y);
 
@@ -203,7 +213,8 @@ namespace ImageCollector
                                 continue;
                             }
 
-                            if (pixelsSeenSoFar.Contains(pixelBeingChecked))
+                            bool pixelThatNearlyMatches = pixelsSeenSoFar.Any(pixel => ImageComparison.ColorsAlmostMatch(pixel, pixelBeingChecked, threshold: 20));
+                            if (pixelThatNearlyMatches)
                             {
                                 pixelDupeCount++;
                                 dupes.Add(sourceFilePath);
@@ -213,6 +224,8 @@ namespace ImageCollector
                                 //Console.WriteLine($"First pixel seen for {pixelTuple} = {pixelBeingChecked} ({sourceFilePath})");
                                 pixelsSeenSoFar.Add(pixelBeingChecked);
                             }
+
+                            image.Dispose();
                         }
 
                         if (pixelDupeCount < minPixelUniqueness && uniquePixels.FirstOrDefault(up => up.Point.Equals(pixelTuple)) == null)
@@ -268,7 +281,7 @@ namespace ImageCollector
             sb.AppendLine("{");
             foreach (string sourceFilePath in sourceFilePaths)
             {
-                Console.WriteLine(sourceFilePath);
+                //Console.WriteLine(sourceFilePath);
                 Bitmap bitmap = new Bitmap(sourceFilePath);
                 List<Color> colors = new List<Color>();
                 foreach (Point point in uniqueColorPoints)
@@ -296,7 +309,7 @@ namespace ImageCollector
         // returns a list of unqiue pixels with color frequency 1 (aka can be uniquely identified by this point
         public static List<UniquePixel> GetSinglePixelFrequency(Point point, List<string> sourceFilePaths)
         {
-            Dictionary<Color, int> pixelFrequency = new Dictionary<Color, int>();
+            List<Tuple<Color, int>> pixelFrequency = new List<Tuple<Color, int>>();
             List<UniquePixel> allUniquePixels = new List<UniquePixel>();
 
             foreach (string sourceFilePath in sourceFilePaths)
@@ -308,19 +321,20 @@ namespace ImageCollector
 
                 Console.WriteLine($"Pixel value = {color} for image {sourceFilePath}");
 
-                if (pixelFrequency.ContainsKey(color))
+                int pixelIndex = pixelFrequency.FindIndex(pixel => ImageComparison.ColorsAlmostMatch(pixel.Item1, color, threshold: 20));
+                if (pixelIndex >= 0)
                 {
-                    pixelFrequency[color] = pixelFrequency[color] + 1;
+                    pixelFrequency[pixelIndex] = new Tuple<Color, int>(color, pixelFrequency[pixelIndex].Item2 + 1);
                 }
                 else
                 {
-                    pixelFrequency[color] = 1;
+                    pixelFrequency.Add(new Tuple<Color, int>(color, 1));
                 }
 
                 image.Dispose();
             }
 
-            return allUniquePixels.FindAll(up => pixelFrequency[up.Color] == 1);
+            return allUniquePixels.FindAll(up => pixelFrequency.Any(pf => pf.Item1.Equals(up.Color) && pf.Item2 == 1));
         }
     }
 }
