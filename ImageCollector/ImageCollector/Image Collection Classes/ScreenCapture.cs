@@ -453,7 +453,7 @@ namespace ImageCollector
             }
         }
 
-        public static void CapturePeriodicScreenshotsOfDesktop()
+        public static void CapturePeriodicScreenshotsOfDesktop(int msBetweenScreenshots = 2000)
         {
             string folderPath = ScreenCapture.CreateEmptyFolder($"Periodic Desktop Screenshots");
 
@@ -463,7 +463,7 @@ namespace ImageCollector
                 string ssName = $"Periodic_Desktop_{screenshotNum}.bmp";
                 string filePath = Path.Combine(folderPath, ssName);
                 SaveTestDesktopScreenshot(filePath);
-                Thread.Sleep(2000);
+                Thread.Sleep(msBetweenScreenshots);
                 screenshotNum++;
             }
         }

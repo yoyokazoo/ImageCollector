@@ -73,7 +73,7 @@ namespace ImageCollector
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ScreenCapture.CapturePeriodicScreenshotsOfDesktop();
+            ScreenCapture.CapturePeriodicScreenshotsOfDesktop(200);
         }
 
         private void button5_Click(object sender, EventArgs e)
