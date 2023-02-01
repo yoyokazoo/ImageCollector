@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ImageCollector.WindowsFilenameSorting;
 using static System.Net.WebRequestMethods;
 
 namespace ImageCollector.Image_Collection_Forms
@@ -50,6 +51,8 @@ namespace ImageCollector.Image_Collection_Forms
         private void button5_Click(object sender, EventArgs e)
         {
             string[] sourceFilePaths = Directory.GetFiles(textBoxInputFolder.Text);
+            Array.Sort(sourceFilePaths, new NaturalStringComparer());
+
             string outputImagePath = textBoxOutputFolder.Text;
 
             if (profile.BlowAwayFolderContents)

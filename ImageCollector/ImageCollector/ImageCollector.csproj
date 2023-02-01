@@ -73,6 +73,7 @@
     <Compile Include="Image Collection Classes\ScreenCapture.cs" />
     <Compile Include="Image Collection Classes\ImageCollectionProfile.cs" />
     <Compile Include="Image Collection Classes\ImageProcessingProfile.cs" />
+    <Compile Include="Image Collection Classes\WindowsFilenameSorting.cs" />
     <Compile Include="Image Collection Forms\ImageCollectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
