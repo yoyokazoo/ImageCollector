@@ -59,6 +59,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxMSBetweenSSs = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -345,11 +347,30 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(535, 154);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(89, 13);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "MS between SSs";
+            // 
+            // textBoxMSBetweenSSs
+            // 
+            this.textBoxMSBetweenSSs.Location = new System.Drawing.Point(640, 151);
+            this.textBoxMSBetweenSSs.Name = "textBoxMSBetweenSSs";
+            this.textBoxMSBetweenSSs.Size = new System.Drawing.Size(148, 20);
+            this.textBoxMSBetweenSSs.TabIndex = 26;
+            this.textBoxMSBetweenSSs.TextChanged += new System.EventHandler(this.textBoxMSBetweenSSs_TextChanged);
+            // 
             // ImageCollectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 628);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxMSBetweenSSs);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -420,5 +441,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxMSBetweenSSs;
     }
 }

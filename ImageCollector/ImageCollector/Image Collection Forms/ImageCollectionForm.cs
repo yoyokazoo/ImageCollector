@@ -73,7 +73,7 @@ namespace ImageCollector
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ScreenCapture.CapturePeriodicScreenshotsOfDesktop(200);
+            ScreenCapture.CapturePeriodicScreenshotsOfDesktop(profile.MSBetweenScreenshots);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -175,6 +175,8 @@ namespace ImageCollector
 
             textBoxWindowWidth.Text = profile.WindowWidth.ToString();
             textBoxWindowHeight.Text = profile.WindowHeight.ToString();
+
+            textBoxMSBetweenSSs.Text = profile.MSBetweenScreenshots.ToString();
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------
@@ -218,6 +220,12 @@ namespace ImageCollector
         {
             int.TryParse(textBoxWindowHeight.Text, out int result);
             profile.WindowHeight = result;
+        }
+
+        private void textBoxMSBetweenSSs_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(textBoxMSBetweenSSs.Text, out int result);
+            profile.MSBetweenScreenshots = result;
         }
     }
 }

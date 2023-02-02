@@ -19,6 +19,9 @@ namespace ImageCollector
         public int WindowWidth { get; set; }
         public int WindowHeight { get; set; }
 
+        public const int DEFAULT_MS_BETWEEN_SCREENSHOTS = 1000;
+        public int MSBetweenScreenshots { get; set; }
+
         public ImageCollectionProfile()
         {
             ProcessName = string.Empty;
@@ -29,6 +32,8 @@ namespace ImageCollector
 
             WindowWidth = 0;
             WindowHeight = 0;
+
+            MSBetweenScreenshots = DEFAULT_MS_BETWEEN_SCREENSHOTS;
         }
 
         public override ImageCollectionProfile Clone()
@@ -44,6 +49,8 @@ namespace ImageCollector
             newProfile.WindowWidth = this.WindowWidth;
             newProfile.WindowHeight = this.WindowHeight;
 
+            newProfile.MSBetweenScreenshots = this.MSBetweenScreenshots;
+
             return newProfile;
         }
 
@@ -56,7 +63,8 @@ namespace ImageCollector
                 this.WindowOffsetX != otherProfile.WindowOffsetX ||
                 this.WindowOffsetY != otherProfile.WindowOffsetY ||
                 this.WindowWidth != otherProfile.WindowWidth ||
-                this.WindowHeight != otherProfile.WindowHeight)
+                this.WindowHeight != otherProfile.WindowHeight || 
+                this.MSBetweenScreenshots != otherProfile.MSBetweenScreenshots)
             {
                 return false;
             }
