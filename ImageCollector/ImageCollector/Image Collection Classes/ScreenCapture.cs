@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using static ImageCollector.WindowsFilenameSorting;
 
 // taken from http://www.developerfusion.com/code/4630/capture-a-screen-shot/ with heavy modifications done
 // TODO: How to share this between projects easily?  Project that builds a DLL and add that DLL as a reference?
@@ -472,6 +473,7 @@ namespace ImageCollector
         public static List<Bitmap> GetBitmapsFromInputFolderPath(string inputFolderPath)
         {
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
+            Array.Sort(sourceFilePaths, new NaturalStringComparer());
             return GetBitmapsFromFilePaths(sourceFilePaths);
         }
 

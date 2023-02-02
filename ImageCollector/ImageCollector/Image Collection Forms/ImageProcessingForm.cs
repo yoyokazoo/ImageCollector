@@ -39,6 +39,7 @@ namespace ImageCollector.Image_Collection_Forms
         private void button4_Click(object sender, EventArgs e)
         {
             string[] inputImagePaths = Directory.GetFiles(textBoxInputFolder.Text);
+            Array.Sort(inputImagePaths, new NaturalStringComparer());
             string subImagePath = textBoxSourceImage.Text;
 
             foreach (string inputImagePath in inputImagePaths)

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using static ImageCollector.WindowsFilenameSorting;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ImageCollector
@@ -146,6 +147,7 @@ namespace ImageCollector
             List<UniquePixel> uniquePixels = new List<UniquePixel>();
 
             string[] sourceFilePaths = Directory.GetFiles(inputFolderPath);
+            Array.Sort(sourceFilePaths, new NaturalStringComparer());
             List<string> remainingSourceFilePaths = sourceFilePaths.ToList();
 
             int maxWidth = 0;
